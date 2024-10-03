@@ -1,0 +1,1131 @@
+openapi: 3.0.1
+info:
+  title: Chimera API
+  description: API for chimera upgrade
+  version: 1.0.0
+servers:
+  - url: 'https://api.testnet.everclear.org'
+  - url: 'https://api.everclear.org'
+
+paths:
+  /estimates/router-fees:
+    get:
+      summary: Returns the estimated router fee
+      description: Fetches estimated router fees based on provided parameters
+      parameters:
+        - in: query
+          name: origin
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: destination
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: amount
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: asset
+          required: TransactionRequest
+          schema:
+            type: string
+        - in: query
+          name: originNativeTokenPrice
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: destinationNativeTokenPrice
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: priceIn
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: callDataGasAmount
+          required: false
+          schema:
+            type: number
+
+      responses:
+        '200':
+          description: Successful response with the estimated router fee
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  routerFee:
+                    type: string
+                    format: bigint
+        '400':
+          description: Invalid inputs or error from Gelato API
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+
+  /estimates/quotes:
+    get:
+      summary: Returns the estimated amount received
+      description: Provides estimates of the amount received for a transaction between specified origins and destinations with specified token and amount
+      parameters:
+        - in: query
+          name: origin
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: destination
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: originToken
+          required: true
+          schema:
+            type: object
+            required:
+              - address
+              - symbol
+            properties:
+              address:
+                type: string
+              symbol:
+                type: string
+
+        - in: query
+          name: amount
+          required: true
+          schema:
+            type: string
+            format: bigint
+      responses:
+        '200':
+          description: Successful response with the estimated amounts
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - amountReceived
+                  - isFastPath
+                properties:
+                  amountReceived:
+                    type: string
+                    format: bigint
+                  isFastPath:
+                    type: boolean
+        '400':
+          description: Invalid inputs
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+
+  /intents:
+    get:
+      summary: Get intents
+      description: Retrieves a paginated list of intents based on query parameters
+      parameters:
+        - in: query
+          name: cursor
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: prevCursor
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: limit
+          required: false
+          schema:
+            type: integer
+          default: 10
+        - in: query
+          name: statuses
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: origins
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: destinations
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: allDestinations
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: txHash
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: userAddress
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: startDate
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: endDate
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: asset
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful retrieval of intents
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - intents
+                  - nextCursor
+                  - maxCount
+                  - prevCursor
+                properties:
+                  intents:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Intent'
+                  nextCursor:
+                    type: string
+                    required: true
+                    nullable: true
+                  prevCursor:
+                    type: string
+                    required: true
+                    nullable: true
+                  maxCount:
+                    type: number
+                    required: true
+        '400':
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+    post:
+      summary: Create new intent
+      description: Endpoint to generate a TransactionRequest for a newIntent
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - origin
+                - destinations
+                - to
+                - inputAsset
+                - amount
+                - callData
+                - maxFee
+              properties:
+                origin:
+                  type: string
+                destinations:
+                  type: array
+                  items:
+                    type: string
+                  nullable: false
+                to:
+                  type: string
+                inputAsset:
+                  type: string
+                amount:
+                  type: string
+                  format: bigint
+                callData:
+                  type: string
+                maxFee:
+                  type: string
+                  format: bigint
+                permit2Params:
+                  type: object
+                  properties:
+                    nonce:
+                      type: string
+                      format: bigint
+                      description: Nonce as a bigint
+                    deadline:
+                      type: string
+                      format: bigint
+                      description: Deadline as a bigint
+                    signature:
+                      type: string
+                  required:
+                    - nonce
+                    - deadline
+                    - signature
+      responses:
+        '200':
+          description: Successful response with a TransactionRequest object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionRequest'
+        '400':
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+        '404':
+          description: Registries not found and deployed for given domain
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+
+  /intents/{intentId}:
+    get:
+      summary: Get intent details
+      description: Fetches detailed information for a specified intent by its ID
+      parameters:
+        - in: path
+          name: intentId
+          required: true
+          schema:
+            type: string
+            description: The unique identifier for the intent
+      responses:
+        '200':
+          description: Successful retrieval of intent details
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  intent:
+                    $ref: '#/components/schemas/Intent'
+        '400':
+          description: Invalid Intent ID
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+    post:
+      summary: Update max fee
+      description: Updates the max fee for a specified intent and returns a TransactionRequest object
+      parameters:
+        - in: path
+          name: intentId
+          required: true
+          schema:
+            type: string
+            description: The unique identifier for the intent
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - maxFee
+              properties:
+                feeAssetInNative:
+                  type: boolean
+                  nullable: true
+                maxFee:
+                  type: string
+                  format: bigint
+      responses:
+        '200':
+          description: Successful response with a TransactionRequest object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionRequest'
+        '400':
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+
+  /intents/{intentId}/execute:
+    post:
+      summary: Execute calldata
+      description: The request object for `executeIntentCalldata`, used for self-execution
+      parameters:
+        - in: path
+          name: intentId
+          required: true
+          schema:
+            type: string
+            description: The unique identifier for the intent
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - domain
+              properties:
+                domain:
+                  type: string
+                  description: The domain for the request
+      responses:
+        '200':
+          description: Successful response with a TransactionRequest object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionRequest'
+        '400':
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+
+  /intents/{intentId}/return-unsupported:
+    post:
+      summary: Return unsupported intent
+      description: The request object for `returnUnsupportedIntent` on hub domain
+      parameters:
+        - in: path
+          name: intentId
+          required: true
+          schema:
+            type: string
+            description: The unique identifier for the intent
+      responses:
+        '200':
+          description: Successful response with a TransactionRequest object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionRequest'
+        '400':
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+
+  /invoices:
+    get:
+      summary: Get invoices
+      description: Retrieves a paginated list of invoices in FIFO queue order
+      parameters:
+        - in: query
+          name: cursor
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: prevCursor
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: limit
+          required: false
+          schema:
+            type: integer
+          default: 10
+        - in: query
+          name: tickerHash
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: origins
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: destinations
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: sortOrderByDiscount
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful retrieval of invoices
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - invoices
+                  - nextCursor
+                  - maxCount
+                  - prevCursor
+                properties:
+                  invoices:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Invoice'
+                  nextCursor:
+                    type: string
+                    required: true
+                    nullable: true
+                  prevCursor:
+                    type: string
+                    required: true
+                    nullable: true
+                  maxCount:
+                    type: number
+                    required: true
+        '400':
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+
+  /invoices/{intentId}:
+    get:
+      summary: Return invoice details
+      description: Fetches detailed information for a specified invoice by its intentID
+      parameters:
+        - in: path
+          name: intentId
+          required: true
+          schema:
+            type: string
+            description: The unique identifier for the intent
+      responses:
+        '200':
+          description: Successful retrieval of invoice details
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  invoice:
+                    $ref: '#/components/schemas/Invoice'
+        '400':
+          description: Invalid Intent ID
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+
+  /withdraw:
+    post:
+      summary: Withdraw balance
+      description: The request object to `withdraw` from the protocol
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - asset
+                - amount
+                - domain
+              properties:
+                asset:
+                  type: string
+                domain:
+                  type: string
+                amount:
+                  type: string
+                  format: bigint
+      responses:
+        '200':
+          description: Successful response with a TransactionRequest object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionRequest'
+        '400':
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+
+  /configs/assets:
+    get:
+      summary: Get supported assets
+      description: Lists assets supported by the protocol, with pagination and optional filtering by type
+      parameters:
+        - in: query
+          name: page
+          required: true
+          schema:
+            type: integer
+        - in: query
+          name: limit
+          required: true
+          schema:
+            type: integer
+        - in: query
+          name: type
+          required: false
+          schema:
+            type: string
+            enum:
+              - xERC20
+              - other
+      responses:
+        '200':
+          description: Successful retrieval of assets
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  assets:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Asset'
+        '400':
+          description: Invalid Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+
+# Response schemas for request
+components:
+  schemas:
+    TransactionRequest:
+      type: object
+      properties:
+        to:
+          type: string
+          nullable: true
+        from:
+          type: string
+          nullable: true
+        nonce:
+          type: string
+          format: bigint
+        gasLimit:
+          type: string
+          format: bigint
+        gasPrice:
+          type: string
+          format: bigint
+        data:
+          type: string
+          format: byte
+        value:
+          type: string
+          format: bigint
+        chainId:
+          type: integer
+        type:
+          type: integer
+          nullable: true
+        accessList:
+          type: array
+          items:
+            type: object
+            properties:
+              address:
+                type: string
+              storageKeys:
+                type: array
+                items:
+                  type: string
+          nullable: true
+        maxPriorityFeePerGas:
+          type: string
+          format: bigint
+          nullable: true
+        maxFeePerGas:
+          type: string
+          format: bigint
+          nullable: true
+        customData:
+          type: object
+          additionalProperties: true
+          nullable: true
+        ccipReadEnabled:
+          type: boolean
+          nullable: true
+      required:
+        - to
+        - data
+        - chainId
+
+    Asset:
+      type: object
+      required:
+        - local
+        - adopted
+        - canonical_id
+        - canonical_domain
+        - domain
+        - key
+        - id
+        - decimal
+        - adopted_decimal
+      properties:
+        local:
+          type: string
+          maxLength: 66
+        adopted:
+          type: string
+        canonical_id:
+          type: string
+          maxLength: 66
+        canonical_domain:
+          type: string
+          maxLength: 66
+        domain:
+          type: string
+        key:
+          type: string
+        id:
+          type: string
+        decimal:
+          type: number
+        adopted_decimal:
+          type: number
+
+    ProtocolConfig:
+      type: object
+      required:
+        - config
+      properties:
+        config:
+          type: string
+          maxLength: 66
+
+    IntentStatus:
+      type: string
+      enum:
+        - NONE
+        - ADDED
+        - ADDED_SPOKE
+        - ADDED_HUB
+        - DEPOSIT_PROCESSED
+        - FILLED
+        - ADDED_AND_FILLED
+        - INVOICED
+        - SETTLED
+        - SETTLED_AND_COMPLETED
+        - SETTLED_AND_MANUALLY_EXECUTED
+        - UNSUPPORTED
+        - UNSUPPORTED_RETURNED
+        - DISPATCHED_HUB
+        - DISPATCHED_SPOKE
+        - DISPATCHED_UNSUPPORTED
+
+    Invoice:
+      type: object
+      required:
+        - intent_id
+        - owner
+        - entry_epoch
+        - amount
+        - discount
+        - origin
+        - destinations
+        - ticker_hash
+        - hub_invoice_enqueued_timestamp
+        - discountBps
+      properties:
+        intent_id:
+          type: string
+          description: 'A string representing the intent ID'
+        owner:
+          type: string
+          description: 'Invoice owner address'
+        entry_epoch:
+          type: integer
+          format: int64
+          description: 'The epoch when the invoice was created'
+        amount:
+          type: string
+          description: 'Amount of the invoice'
+        discountBps:
+          type: integer
+          format: int64
+          description: 'The current discount of the invoice in BPS'
+        origin:
+          type: string
+        destinations:
+          type: array
+          items:
+            type: string
+        hub_status:
+          $ref: '#/components/schemas/IntentStatus'
+          description: 'The status of the intent on Hub domain'
+          nullable: true
+        ticker_hash:
+          type: string
+        hub_invoice_enqueued_timestamp:
+          type: string
+
+    Intent:
+      type: object
+      properties:
+        intent_id:
+          type: string
+          description: 'A string representing the intent ID'
+        queue_idx:
+          type: integer
+          format: int64
+          description: 'Queue index'
+        message_id:
+          type: string
+          description: 'A string representing the message ID'
+        status:
+          $ref: '#/components/schemas/IntentStatus'
+          description: 'The status of the intent'
+        receiver:
+          type: string
+          description: 'Receiver address'
+        input_asset:
+          type: string
+          description: 'Input asset'
+        output_asset:
+          type: string
+          description: 'Output asset'
+        origin_amount:
+          type: string
+          description: 'Origin amount'
+        destination_amount:
+          type: string
+          nullable: true
+          description: 'Destination amount'
+        origin:
+          type: string
+          description: 'Origin address'
+        destinations:
+          type: array
+          items:
+            type: string
+            description: 'Destination address'
+        nonce:
+          type: integer
+          format: int64
+          description: 'Nonce'
+        transaction_hash:
+          type: string
+          description: 'Transaction hash (intent_created tx hash)'
+        receive_tx_hash:
+          type: string
+          nullable: true
+          description: 'Receive transaction hash'
+        intent_created_timestamp:
+          type: integer
+          format: int64
+          description: 'Intent Created timestamp'
+        settlement_timestamp:
+          type: integer
+          format: int64
+          nullable: true
+          description: 'Receive timestamp'
+        intent_created_block_number:
+          type: integer
+          format: int64
+          description: 'Intent created block number'
+        receive_blocknumber:
+          type: integer
+          format: int64
+          nullable: true
+          description: 'Receive block number'
+        tx_origin:
+          type: string
+          description: 'Transaction origin address'
+        tx_nonce:
+          type: integer
+          format: int64
+          description: 'Transaction nonce'
+        auto_id:
+          type: integer
+          format: int64
+          description: 'Auto-generated identifier'
+        max_fee:
+          type: string
+          description: 'Maximum fee'
+        call_data:
+          type: string
+          nullable: true
+          description: 'Call data'
+        filled:
+          type: boolean
+          nullable: true
+          description: 'Filler address'
+        initiator:
+          type: string
+          nullable: true
+          description: 'Initiator address'
+        origin_gas_fees:
+          type: string
+          description: 'Origin gas fees'
+        destination_gas_fees:
+          type: string
+          nullable: true
+          description: 'Destination gas fees'
+        hub_settlement_domain:
+          type: string
+          description: 'Settlement domain for an intent'
+          nullable: true
+        ttl:
+          type: number
+          description: 'TTL set for an intent'
+          nullable: true
+      required:
+        - intent_id
+        - queue_idx
+        - message_id
+        - status
+        - receiver
+        - input_asset
+        - output_asset
+        - origin_amount
+        - origin
+        - destinations
+        - nonce
+        - data
+        - transaction_hash
+        - intent_created_timestamp
+        - intent_created_block_number
+        - tx_origin
+        - tx_nonce
+        - auto_id
+        - max_fee
+        - origin_gas_fees
+        - ttl
