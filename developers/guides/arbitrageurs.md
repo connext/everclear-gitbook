@@ -72,33 +72,41 @@ The entry point to purchase an invoice (intent) is `newIntent` on the `Spoke` co
 
 The `destinations` field is an array where multiple domains can be provided to allow the Arbitrageur to be settled on a preferred domain. When the invoice is purchased, the Arbitrageur’s `destinations` array will be iterated and the domain with the highest liquidity and lowest discount will be used for settlement. For example: if an invoice is travelling from Optimism to Arbitrum, the Arbitrageur’s new intent could be sent to the Spoke contract on Arbitrum with a destinations array containing multiple destinations such as \[Optimism, Polygon, BNB].
 
-If the Arbitrageur provides multiple `destinations` and their deposit is not matched with an invoice, their invoice will be able to match with any of the provided domains when being processed. This may allow an Arbitraguer to increase the speed at whch their deposit is settled and minimise the likelihood a discount will be applied to their intent as there are multiple domains for the intent to be settled on.
+If the Arbitrageur provides multiple `destinations` and their deposit is not matched with an invoice, their invoice will be able to match with any of the provided domains when being processed. This may allow an Arbitraguer to increase the speed at which their deposit is settled and minimise the likelihood a discount will be applied to their intent as there are multiple domains for the intent to be settled on.
+
+The `maxFee` field should **always be specified as 0** as maxFee is only applicable in cases where an order should be routed to the solver pathway and does not apply to the netting pathway.
+
+The `ttl` input should **always be specified as 0** to indicate the order should be routed via the netting system on the Hub. When `ttl` is non-zero an order is routed via a separate solver pathway where the intent creator requires a dedicated solver to fill an intent for a fee. This pathway will not be supported at launch; Arbitrageurs must ensure all netting order fills **always specify `ttl` as 0.**
 
 ```solidity
 /**
  * @notice Creates a new intent
  * @param _destinations The possible destination chains of the intent
- * @param _to The destinantion address of the intent
+ * @param _receiver The destinantion address of the intent
  * @param _inputAsset The asset address on origin
  * @param _outputAsset The asset address on destination
  * @param _amount The amount of the asset
+ * @param _maxFee The maximum fee that can be taken by solvers
+ * @param _ttl The time to live of the intent
  * @param _data The data of the intent
  * @return _intentId The ID of the intent
  * @return _intent The intent object
 */
   function newIntent(
     uint32[] memory _destinations,
-    address _to,
+    address _receiver,
     address _inputAsset,
     address _outputAsset,
     uint256 _amount,
+    uint24 _maxFee,
+    uint48 _ttl,
     bytes calldata _data
   ) external returns (bytes32 _intentId, Intent memory _intent);
 ```
 
 When the `Spoke` contract completes the `newIntent` call, the intent will be added to the `intentQueue`, and periodically sent to the `Hub` contract on the Clearing chain - depending on the configuration of the max queue size and age for the origin domain.
 
-An intent can be created by interacting directly with the contract. The following is a simple example sending 100 USDT via the netting system from Sepolia Testnet to BNB Testnet.
+An intent can be created by interacting directly with the contract. The following is a simple example sending 100 USDT via the netting system from Sepolia Testnet to BNB Testnet -  `ttl` and `maxFee` are specified as 0 to indicate the netting system should be used.
 
 ```tsx
 import { ethers, BigNumberish } from 'ethers'
@@ -117,6 +125,8 @@ const TO = "0x..." // Receiver address on destination domain
 const USDT_SEPOLIA_TEST = "0x7169D38820dfd117C3FA1f22a697dBA58d90BA06"; // USDT on Sepolia testnet
 const USDT_BNB_TEST = "0x337610d27c682E347C9cD60BD4b3b107C9d34dDd"; // USDT on BNB testnet
 const AMOUNT_IN = ethers.toBigInt(100_000_000); // Amount being transferred
+const MAX_FEE = 0; // No max fee applicable to netting orders
+const TTL = 0; // Specifying ttl as 0 indicates a netting order
 
 async function newIntent(): Promise<void> {
   // Configuring the provider and wallet for the solver
@@ -132,7 +142,7 @@ async function newIntent(): Promise<void> {
   await approveTx.wait(5);
 
   // Calling new intent to purchase an intent on OP
-  const newIntentTx = await spokeContract.newIntent(DEST, TO, USDT_SEPOLIA_TEST, USDT_BNB_TEST, AMOUNT_IN, ""); 
+  const newIntentTx = await spokeContract.newIntent(DEST, TO, USDT_SEPOLIA_TEST, USDT_BNB_TEST, AMOUNT_IN, MAX_FEE, TTL, ""); 
   await newIntentTx.wait(5);
 }
 

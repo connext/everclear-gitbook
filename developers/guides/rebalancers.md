@@ -22,6 +22,10 @@ The steps involved in the netting process are:
 
 Our estimates suggest 70% of intents will be matched with other Rebalancers in the netting system while the remaining 30% will be purchased by Arbitrageurs. For a detailed explanation of the matching process, discounts, fees, and settlement visit Protocol Mechanics section.
 
+
+
+Rebalancers testing using our protocol are recommended to send intents with **value exceeding $250** on L2s. If the intent can't be netted against other flows, this will ensure Arbitrageurs fill the order with a reasonable BPS discount which will more accurately represent outcomes when using the system.&#x20;
+
 ## **Creating a new intent**
 
 As a Rebalancer, you will need to interact with the `Spoke` contract on the origin domain to create a new intent that will be processed by the netting system.
@@ -29,6 +33,10 @@ As a Rebalancer, you will need to interact with the `Spoke` contract on the orig
 ### `newIntent` called on `Spoke` contract
 
 The entry point to rebalance is `newIntent` on the `Spoke` contract of the origin domain. The `destinations` field can be defined as a single item in an array if the Rebalancer wants to rebalance funds to a specific domain i.e. from OP to ARB. However, if the Rebalancer wants to rebalance to one of any domains they can provide a list and the system will rebalance to the domain that has the highest liquidity and lowest discoutn at settlement time.
+
+The `maxFee` field should **always be specified as 0** as maxFee is only applicable in cases where an order should be routed to the solver pathway and does not apply to the netting pathway.
+
+The `ttl` input should **always be specified as 0** to indicate the order should be routed via the netting system on the Hub. When `ttl` is non-zero an order is routed via a separate solver pathway where the intent creator requires a dedicated solver to fill the intent for a fee. This pathway will not be supported at launch; Rebalancers must ensure all netting orders **always specify `ttl` as 0.**
 
 ```solidity
 /**
@@ -38,6 +46,8 @@ The entry point to rebalance is `newIntent` on the `Spoke` contract of the origi
  * @param _inputAsset The asset address on origin
  * @param _outputAsset The asset address on destination
  * @param _amount The amount of the asset
+ * @param _maxFee The maximum fee that can be taken by solvers
+ * @param _ttl The time to live of the intent
  * @param _data The data of the intent
  * @return _intentId The ID of the intent
  * @return _intent The intent object
@@ -48,13 +58,15 @@ The entry point to rebalance is `newIntent` on the `Spoke` contract of the origi
     address _inputAsset,
     address _outputAsset,
     uint256 _amount,
+    uint24 _maxFee,
+    uint48 _ttl,
     bytes calldata _data
   ) external returns (bytes32 _intentId, Intent memory _intent);
 ```
 
 When the `Spoke` contract completes the `newIntent` call, the intent will be added to the `intentQueue`, and periodically sent to the `Hub` contract on the Clearing chain - depending on the configuration of the max queue size and age for the origin domain.
 
-An intent can be created by interacting directly with the contract. The following is a simple example sending 100 USDT via the netting system from Sepolia Testnet to BNB Testnet.
+An intent can be created by interacting directly with the contract. The following is a simple example sending 100 USDT via the netting system from Sepolia Testnet to BNB Testnet - `ttl` and `maxFee` are specified as 0 to indicate the netting system should be used.
 
 ```tsx
 import { ethers, BigNumberish } from 'ethers'
@@ -73,6 +85,8 @@ const TO = "0x..." // Receiver address on destination domain
 const USDT_SEPOLIA_TEST = "0x7169D38820dfd117C3FA1f22a697dBA58d90BA06"; // USDT on Sepolia testnet
 const USDT_BNB_TEST = "0x337610d27c682E347C9cD60BD4b3b107C9d34dDd"; // USDT on BNB testnet
 const AMOUNT_IN = ethers.toBigInt(100_000_000); // Amount being transferred
+const MAX_FEE = 0; // No max fee applicable to netting orders
+const TTL = 0; // Specifying ttl as 0 indicates this is a netting order
 
 async function newIntent(): Promise<void> {
     // Configuring the provider and wallet for the solver
@@ -88,7 +102,7 @@ async function newIntent(): Promise<void> {
     await approveTx.wait(5);
     
     // Calling new intent to create an intent on OP
-    const newIntentTx = await spokeContract.newIntent(DEST, TO, USDT_SEPOLIA_TEST, USDT_BNB_TEST, AMOUNT_IN, ""); 
+    const newIntentTx = await spokeContract.newIntent(DEST, TO, USDT_SEPOLIA_TEST, USDT_BNB_TEST, AMOUNT_IN, MAX_FEE, TTL, ""); 
     await newIntentTx.wait(5);
 }
 

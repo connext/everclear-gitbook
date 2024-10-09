@@ -16,7 +16,7 @@
 * [Guides](developers/guides/README.md)
   * [Rebalancers](developers/guides/rebalancers.md)
   * [Arbitrageurs](developers/guides/arbitrageurs.md)
-  * [xERC20s](developers/guides/xerc20s.md)
+  * [xERC20](developers/guides/xerc20.md)
   * [New Chains](developers/guides/new-chains.md)
 * [API](developers/api.md)
 * [Audits](developers/audits.md)
