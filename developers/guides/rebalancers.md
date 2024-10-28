@@ -54,7 +54,7 @@ The `ttl` input should **always be specified as 0** to indicate the order should
 */
   function newIntent(
     uint32[] memory _destinations,
-    address _to,
+    address _receiver,
     address _inputAsset,
     address _outputAsset,
     uint256 _amount,
@@ -75,7 +75,7 @@ import { ethers, BigNumberish } from 'ethers'
 const PRIVATE_KEY = "<PRIVATE_KEY>";
 const RPC_URL_ARB = "<RPC_URL>";
 const SPOKE_ADDRESS = ""; // Spoke on origin chain
-const SPOKE_ABI = ["function newIntent(uint32[] _destinations,address _to, address _inputAsset, address _outputAsset, uint256 _amount, bytes _data) external"];
+const SPOKE_ABI = ["function newIntent(uint32[] _destinations, address _receiver, address _inputAsset, address _outputAsset, uint256 _amount, uint24 _maxFee, uint48 _ttl, bytes _data) external"];
 const ERC20_ABI = ["function approve(address spender, uint256 amount) external"]
 
 // Function inputs //
