@@ -22,18 +22,18 @@ This is a testnet environment, subject to frequent changes.
 
 ## Deployed Contracts
 
-| Contract Name  | DomainID | Address                                     |
-| -------------- | -------- | ------------------------------------------- |
-| EverclearHub   | 6398     | 0x02cfc75A2C24Cf698AFb53017c1a19e16C4f14da  |
-| HubGateway     | 6398     | 0x0b6241a74D521d947E02a12D1f409Bad563c7833  |
-| EverclearSpoke | 11155111 | 0x83d58be7DAbd2C12df29FE80d24a0A661BC88B11  |
-| SpokeGateway   | 11155111 | 0x557A0AF3F73Ee8627e60ec813d6CF29cA0f90c77  |
-| EverclearSpoke | 97       | 0x83d58be7DAbd2C12df29FE80d24a0A661BC88B11  |
-| SpokeGateway   | 97       | 0x557A0AF3F73Ee8627e60ec813d6CF29cA0f90c77  |
-| EverclearSpoke | 11155420 | 0xd18C5E22E67947C8f3E112C622036E65a49773ab  |
-| SpokeGateway   | 11155420 | 0x688a75702c4cF772164b7a448df3Db018199D414D |
-| EverclearSpoke | 421614   | 0xd18C5E22E67947C8f3E112C622036E65a49773ab  |
-| SpokeGateway   | 421614   | 0x688a75702c4cF772164b7a448df3Db018199D414  |
+| Contract Name  | DomainID | Address                                    |
+| -------------- | -------- | ------------------------------------------ |
+| EverclearHub   | 6398     | 0x4C526917051ee1981475BB6c49361B0756F505a8 |
+| HubGateway     | 6398     | 0x4b0017AD0CAbdf72106fC5d6B15e366A9A47DD25 |
+| EverclearSpoke | 11155111 | 0x3650432cB5331e6dc95be8C1d8168b7c37f677e2 |
+| SpokeGateway   | 11155111 | 0x37f1E1C89306c0e95bfa3221Ef7D364886e43047 |
+| EverclearSpoke | 97       | 0xFeaaF6291E40252413aA6cb5214F486c8088207e |
+| SpokeGateway   | 97       | 0xCBFCE40d758564B855506Db7Ff15F1978B8E0Fa1 |
+| EverclearSpoke | 11155420 | 0xf9A4d8cED1b8c53B39429BB9a8A391b74E85aE5C |
+| SpokeGateway   | 11155420 | 0xfea15B6F776aA3a84d70e5D98E48f19556F76eb7 |
+| EverclearSpoke | 421614   | 0x97f24e4eeD4d05D48cb8a45ADfE5e6aF2de14F71 |
+| SpokeGateway   | 421614   | 0x0A1bcEE4F09B691EbFbb3a5b83221A7Ce896c6bd |
 
 ## Registered Assets
 
