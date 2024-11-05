@@ -2,11 +2,11 @@
 
 ### List of Audits
 
-Coming soon.
+September 2024: [Creed](https://github.com/everclearorg/audits/blob/main/reports/\[CREED]%202024-08%20Everclear%20Chimera%20Mitigations.pdf)
 
 ### Audit Documentation
 
-All audits can be found in our Github repo: _Coming soon._
+All audits can be found in our Github repo: [Here](https://github.com/everclearorg/audits)
 
 ### **Immunefi Bug Bounty**
 
