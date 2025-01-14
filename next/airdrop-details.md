@@ -21,7 +21,9 @@ This document is currently subject to public review before being finalized. If y
 
 ## Airdrop Overview
 
-The NEXT airdrop will be conducted through a first-of-its-kind airdrop mechanism, allowing eligible recipients to natively claim NEXT on the chain of their choice without the need to use a bridge or pay unnecessary gas fees.
+The NEXT airdrop was conducted as a first-of-its-kind airdrop mechanism, allowing eligible recipients to natively claim NEXT on the chain of their choice without the need to use a bridge or pay unnecessary gas fees.
+
+The claiming period for the NEXT airdrop has now closed, and all unclaimed tokens have been returned to the Everclear DAO.
 
 ### NEXT Details
 

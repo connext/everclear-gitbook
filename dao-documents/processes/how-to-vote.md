@@ -12,7 +12,7 @@ layout:
     visible: true
 ---
 
-# Vote
+# How to Vote
 
 {% hint style="warning" %}
 This document is currently subject to public review before being finalized. If you notice a revision that needs to be made or have feedback, please [request a revision](https://github.com/connext/gitbook-docs/issues/new) or start a conversation with us on Discord at [https://discord.com/invite/everclear](https://discord.com/invite/everclear)
@@ -20,7 +20,7 @@ This document is currently subject to public review before being finalized. If y
 
 As a member of the Connext DAO, you can actively participate in the DAO's decision-making process by voting on governance proposals that other DAO members submit.
 
-As a NEXT token holder (or delegate), you can participate in these Snapshot polls and "temperature check" discussions:
+As a CLEAR token holder (or delegate), you can participate in these Snapshot polls and "temperature check" discussions:
 
 1. Go to the Connext DAO governance forum.
 2. Locate the proposal you'd like to vote on and read through the proposal and the discussion thread.
