@@ -7,8 +7,8 @@
 There are three types of messages related to intents within Everclear:
 
 1. _Intent._ Created when a user generates an intent and dispatched periodically from the source chain to the clearing chain using the transport layer. Contains the source of truth information for the intent data.
-2. _Fill. G_enerated when a solver fills an intent and dispatched periodically from the source chain to the clearing chain using the transport layer. Contains information about which solver should be credited in settlement.
-3. _Settlement. G_enerated when both the intent and fill messages arrive on the clearing chain. Sent from the clearing chain to the settlement domain, which is where the solver will be repaid for intent execution.
+2. _Fill. &#x47;_&#x65;nerated when a solver fills an intent and dispatched periodically from the source chain to the clearing chain using the transport layer. Contains information about which solver should be credited in settlement.
+3. _Settlement. &#x47;_&#x65;nerated when both the intent and fill messages arrive on the clearing chain. Sent from the clearing chain to the settlement domain, which is where the solver will be repaid for intent execution.
 
 ### Flow of Funds
 

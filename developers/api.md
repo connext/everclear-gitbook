@@ -16,6 +16,8 @@ Mainnet API: `https://api.everclear.org`
 [OpenApi.yaml](../.gitbook/assets/OpenApi.yaml)
 {% endswagger %}
 
+
+
 {% swagger src="../.gitbook/assets/OpenApi.yaml" path="/intents" method="post" %}
 [OpenApi.yaml](../.gitbook/assets/OpenApi.yaml)
 {% endswagger %}
@@ -47,3 +49,16 @@ Mainnet API: `https://api.everclear.org`
 {% swagger src="../.gitbook/assets/OpenApi.yaml" path="/withdraw" method="post" %}
 [OpenApi.yaml](../.gitbook/assets/OpenApi.yaml)
 {% endswagger %}
+
+{% swagger src="../.gitbook/assets/OpenApi (1).yaml" path="/economy/{chain}/{tickerHash}" method="get" %}
+[OpenApi (1).yaml](<../.gitbook/assets/OpenApi (1).yaml>)
+{% endswagger %}
+
+{% swagger src="../.gitbook/assets/OpenApi (1).yaml" path="/history/{intentId}" method="get" %}
+[OpenApi (1).yaml](<../.gitbook/assets/OpenApi (1).yaml>)
+{% endswagger %}
+
+{% swagger src="../.gitbook/assets/OpenApi (1).yaml" path="/history/{intentId}/invoice-processing" method="get" %}
+[OpenApi (1).yaml](<../.gitbook/assets/OpenApi (1).yaml>)
+{% endswagger %}
+
