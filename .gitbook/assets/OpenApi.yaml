@@ -718,7 +718,7 @@ paths:
   /invoices/{intentId}/min-amounts:
     get:
       summary: Calculate minimum amounts needed to settle invoice
-      description: Calculates the minimum amounts per destination domain a specified invoice
+      description: Calculates the minimum amounts per destination domain to settle a specified invoice
       parameters:
         - in: path
           name: intentId
