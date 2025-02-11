@@ -14,66 +14,66 @@ Mainnet API: `https://api.everclear.org`
 
 
 
-{% swagger src="../.gitbook/assets/api-spec.yaml" path="/intents" method="get" %}
-[api-spec.yaml](../.gitbook/assets/api-spec.yaml)
+{% swagger src="../.gitbook/assets/OpenApi.yaml" path="/intents" method="get" %}
+[OpenApi.yaml](../.gitbook/assets/OpenApi.yaml)
 {% endswagger %}
 
-{% swagger src="../.gitbook/assets/api-spec.yaml" path="/intents" method="post" %}
-[api-spec.yaml](../.gitbook/assets/api-spec.yaml)
+{% swagger src="../.gitbook/assets/OpenApi.yaml" path="/intents" method="post" %}
+[OpenApi.yaml](../.gitbook/assets/OpenApi.yaml)
 {% endswagger %}
 
-{% swagger src="../.gitbook/assets/api-spec.yaml" path="/intents/{intentId}" method="get" %}
-[api-spec.yaml](../.gitbook/assets/api-spec.yaml)
+{% swagger src="../.gitbook/assets/OpenApi.yaml" path="/intents/{intentId}" method="get" %}
+[OpenApi.yaml](../.gitbook/assets/OpenApi.yaml)
 {% endswagger %}
 
-{% swagger src="../.gitbook/assets/api-spec.yaml" path="/intents/{intentId}" method="post" %}
-[api-spec.yaml](../.gitbook/assets/api-spec.yaml)
+{% swagger src="../.gitbook/assets/OpenApi.yaml" path="/intents/{intentId}" method="post" %}
+[OpenApi.yaml](../.gitbook/assets/OpenApi.yaml)
 {% endswagger %}
 
-{% swagger src="../.gitbook/assets/api-spec.yaml" path="/intents/{intentId}/execute" method="post" %}
-[api-spec.yaml](../.gitbook/assets/api-spec.yaml)
+{% swagger src="../.gitbook/assets/OpenApi.yaml" path="/intents/{intentId}/execute" method="post" %}
+[OpenApi.yaml](../.gitbook/assets/OpenApi.yaml)
 {% endswagger %}
 
-{% swagger src="../.gitbook/assets/api-spec.yaml" path="/intents/{intentId}/return-unsupported" method="post" %}
-[api-spec.yaml](../.gitbook/assets/api-spec.yaml)
+{% swagger src="../.gitbook/assets/OpenApi.yaml" path="/intents/{intentId}/return-unsupported" method="post" %}
+[OpenApi.yaml](../.gitbook/assets/OpenApi.yaml)
 {% endswagger %}
 
-{% swagger src="../.gitbook/assets/api-spec.yaml" path="/invoices" method="get" %}
-[api-spec.yaml](../.gitbook/assets/api-spec.yaml)
+{% swagger src="../.gitbook/assets/OpenApi.yaml" path="/invoices" method="get" %}
+[OpenApi.yaml](../.gitbook/assets/OpenApi.yaml)
 {% endswagger %}
 
-{% swagger src="../.gitbook/assets/api-spec.yaml" path="/invoices/{intentId}" method="get" %}
-[api-spec.yaml](../.gitbook/assets/api-spec.yaml)
+{% swagger src="../.gitbook/assets/OpenApi.yaml" path="/invoices/{intentId}" method="get" %}
+[OpenApi.yaml](../.gitbook/assets/OpenApi.yaml)
 {% endswagger %}
 
-{% swagger src="../.gitbook/assets/api-spec.yaml" path="/invoices/{intentId}/min-amounts" method="get" %}
-[api-spec.yaml](../.gitbook/assets/api-spec.yaml)
+{% swagger src="../.gitbook/assets/OpenApi.yaml" path="/invoices/{intentId}/min-amounts" method="get" %}
+[OpenApi.yaml](../.gitbook/assets/OpenApi.yaml)
 {% endswagger %}
 
-{% swagger src="../.gitbook/assets/api-spec.yaml" path="/withdraw" method="post" %}
-[api-spec.yaml](../.gitbook/assets/api-spec.yaml)
+{% swagger src="../.gitbook/assets/OpenApi.yaml" path="/withdraw" method="post" %}
+[OpenApi.yaml](../.gitbook/assets/OpenApi.yaml)
 {% endswagger %}
 
-{% swagger src="../.gitbook/assets/api-spec.yaml" path="/configs/assets" method="get" %}
-[api-spec.yaml](../.gitbook/assets/api-spec.yaml)
+{% swagger src="../.gitbook/assets/OpenApi.yaml" path="/configs/assets" method="get" %}
+[OpenApi.yaml](../.gitbook/assets/OpenApi.yaml)
 {% endswagger %}
 
-{% swagger src="../.gitbook/assets/api-spec.yaml" path="/metrics/liquidity-flow" method="get" %}
-[api-spec.yaml](../.gitbook/assets/api-spec.yaml)
+{% swagger src="../.gitbook/assets/OpenApi.yaml" path="/metrics/liquidity-flow" method="get" %}
+[OpenApi.yaml](../.gitbook/assets/OpenApi.yaml)
 {% endswagger %}
 
-{% swagger src="../.gitbook/assets/api-spec.yaml" path="/metrics/clearing-volume" method="get" %}
-[api-spec.yaml](../.gitbook/assets/api-spec.yaml)
+{% swagger src="../.gitbook/assets/OpenApi.yaml" path="/metrics/clearing-volume" method="get" %}
+[OpenApi.yaml](../.gitbook/assets/OpenApi.yaml)
 {% endswagger %}
 
-{% swagger src="../.gitbook/assets/api-spec.yaml" path="/economy/{chain}/{tickerHash}" method="get" %}
-[api-spec.yaml](../.gitbook/assets/api-spec.yaml)
+{% swagger src="../.gitbook/assets/OpenApi.yaml" path="/economy/{chain}/{tickerHash}" method="get" %}
+[OpenApi.yaml](../.gitbook/assets/OpenApi.yaml)
 {% endswagger %}
 
-{% swagger src="../.gitbook/assets/api-spec.yaml" path="/history/{intentId}" method="get" %}
-[api-spec.yaml](../.gitbook/assets/api-spec.yaml)
+{% swagger src="../.gitbook/assets/OpenApi.yaml" path="/history/{intentId}" method="get" %}
+[OpenApi.yaml](../.gitbook/assets/OpenApi.yaml)
 {% endswagger %}
 
-{% swagger src="../.gitbook/assets/api-spec.yaml" path="/history/{intentId}/invoice-processing" method="get" %}
-[api-spec.yaml](../.gitbook/assets/api-spec.yaml)
+{% swagger src="../.gitbook/assets/OpenApi.yaml" path="/history/{intentId}/invoice-processing" method="get" %}
+[OpenApi.yaml](../.gitbook/assets/OpenApi.yaml)
 {% endswagger %}

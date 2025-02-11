@@ -4,8 +4,8 @@ info:
   description: API for chimera upgrade
   version: 1.0.0
 servers:
-  - url: "https://api.testnet.everclear.org"
-  - url: "https://api.everclear.org"
+  - url: 'https://api.testnet.everclear.org'
+  - url: 'https://api.everclear.org'
 
 paths:
   /estimates/router-fees:
@@ -55,7 +55,7 @@ paths:
             type: number
 
       responses:
-        "200":
+        '200':
           description: Successful response with the estimated router fee
           content:
             application/json:
@@ -65,7 +65,7 @@ paths:
                   routerFee:
                     type: string
                     format: bigint
-        "400":
+        '400':
           description: Invalid inputs or error from Gelato API
           content:
             application/json:
@@ -76,7 +76,7 @@ paths:
                     type: string
                   message:
                     type: string
-        "500":
+        '500':
           description: Server error
           content:
             application/json:
@@ -124,7 +124,7 @@ paths:
             type: string
             format: bigint
       responses:
-        "200":
+        '200':
           description: Successful response with the estimated amounts
           content:
             application/json:
@@ -139,7 +139,7 @@ paths:
                     format: bigint
                   isFastPath:
                     type: boolean
-        "400":
+        '400':
           description: Invalid inputs
           content:
             application/json:
@@ -150,7 +150,7 @@ paths:
                     type: string
                   message:
                     type: string
-        "500":
+        '500':
           description: Server error
           content:
             application/json:
@@ -237,7 +237,7 @@ paths:
           schema:
             type: string
       responses:
-        "200":
+        '200':
           description: Successful retrieval of intents
           content:
             application/json:
@@ -252,7 +252,7 @@ paths:
                   intents:
                     type: array
                     items:
-                      $ref: "#/components/schemas/Intent"
+                      $ref: '#/components/schemas/Intent'
                   nextCursor:
                     type: string
                     required: true
@@ -264,7 +264,7 @@ paths:
                   maxCount:
                     type: number
                     required: true
-        "400":
+        '400':
           description: Invalid input
           content:
             application/json:
@@ -275,7 +275,7 @@ paths:
                     type: string
                   message:
                     type: string
-        "500":
+        '500':
           description: Server error
           content:
             application/json:
@@ -341,13 +341,13 @@ paths:
                     - deadline
                     - signature
       responses:
-        "200":
+        '200':
           description: Successful response with a TransactionRequest object
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/TransactionRequest"
-        "400":
+                $ref: '#/components/schemas/TransactionRequest'
+        '400':
           description: Invalid input
           content:
             application/json:
@@ -358,7 +358,7 @@ paths:
                     type: string
                   message:
                     type: string
-        "404":
+        '404':
           description: Registries not found and deployed for given domain
           content:
             application/json:
@@ -369,7 +369,7 @@ paths:
                     type: string
                   message:
                     type: string
-        "500":
+        '500':
           description: Server error
           content:
             application/json:
@@ -393,7 +393,7 @@ paths:
             type: string
             description: The unique identifier for the intent
       responses:
-        "200":
+        '200':
           description: Successful retrieval of intent details
           content:
             application/json:
@@ -403,8 +403,8 @@ paths:
                   - intent
                 properties:
                   intent:
-                    $ref: "#/components/schemas/Intent"
-        "400":
+                    $ref: '#/components/schemas/Intent'
+        '400':
           description: Invalid Intent ID
           content:
             application/json:
@@ -415,7 +415,7 @@ paths:
                     type: string
                   message:
                     type: string
-        "500":
+        '500':
           description: Server error
           content:
             application/json:
@@ -452,13 +452,13 @@ paths:
                   type: string
                   format: bigint
       responses:
-        "200":
+        '200':
           description: Successful response with a TransactionRequest object
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/TransactionRequest"
-        "400":
+                $ref: '#/components/schemas/TransactionRequest'
+        '400':
           description: Invalid input
           content:
             application/json:
@@ -469,7 +469,7 @@ paths:
                     type: string
                   message:
                     type: string
-        "500":
+        '500':
           description: Server error
           content:
             application/json:
@@ -505,13 +505,13 @@ paths:
                   type: string
                   description: The domain for the request
       responses:
-        "200":
+        '200':
           description: Successful response with a TransactionRequest object
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/TransactionRequest"
-        "400":
+                $ref: '#/components/schemas/TransactionRequest'
+        '400':
           description: Invalid input
           content:
             application/json:
@@ -522,7 +522,7 @@ paths:
                     type: string
                   message:
                     type: string
-        "500":
+        '500':
           description: Server error
           content:
             application/json:
@@ -546,13 +546,13 @@ paths:
             type: string
             description: The unique identifier for the intent
       responses:
-        "200":
+        '200':
           description: Successful response with a TransactionRequest object
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/TransactionRequest"
-        "400":
+                $ref: '#/components/schemas/TransactionRequest'
+        '400':
           description: Invalid input
           content:
             application/json:
@@ -563,7 +563,7 @@ paths:
                     type: string
                   message:
                     type: string
-        "500":
+        '500':
           description: Server error
           content:
             application/json:
@@ -621,7 +621,7 @@ paths:
           schema:
             type: string
       responses:
-        "200":
+        '200':
           description: Successful retrieval of invoices
           content:
             application/json:
@@ -636,7 +636,7 @@ paths:
                   invoices:
                     type: array
                     items:
-                      $ref: "#/components/schemas/Invoice"
+                      $ref: '#/components/schemas/Invoice'
                   nextCursor:
                     type: string
                     required: true
@@ -648,7 +648,7 @@ paths:
                   maxCount:
                     type: number
                     required: true
-        "400":
+        '400':
           description: Invalid input
           content:
             application/json:
@@ -659,7 +659,7 @@ paths:
                     type: string
                   message:
                     type: string
-        "500":
+        '500':
           description: Server error
           content:
             application/json:
@@ -683,7 +683,7 @@ paths:
             type: string
             description: The unique identifier for the intent
       responses:
-        "200":
+        '200':
           description: Successful retrieval of invoice details
           content:
             application/json:
@@ -691,8 +691,8 @@ paths:
                 type: object
                 properties:
                   invoice:
-                    $ref: "#/components/schemas/Invoice"
-        "400":
+                    $ref: '#/components/schemas/Invoice'
+        '400':
           description: Invalid Intent ID
           content:
             application/json:
@@ -703,7 +703,7 @@ paths:
                     type: string
                   message:
                     type: string
-        "500":
+        '500':
           description: Server error
           content:
             application/json:
@@ -727,7 +727,7 @@ paths:
             type: string
             description: The unique identifier for the invoice intent
       responses:
-        "200":
+        '200':
           description: Successful calculation of minimum amounts
           content:
             application/json:
@@ -735,7 +735,7 @@ paths:
                 type: object
                 required:
                   - invoiceAmount
-                  - amountAfterDiscount
+                  - amountAfterDiscounts
                   - discountBps
                   - custodiedAmounts
                   - minAmounts
@@ -743,9 +743,11 @@ paths:
                   invoiceAmount:
                     type: string
                     description: Original invoice amount before discount
-                  amountAfterDiscount:
-                    type: string
-                    description: Amount after applying the discount
+                  amountAfterDiscounts:
+                    type: object
+                    additionalProperties:
+                      type: string
+                    description: Map of domain to amount after applying the discount
                   discountBps:
                     type: string
                     description: Current discount in basis points
@@ -759,7 +761,7 @@ paths:
                     additionalProperties:
                       type: string
                     description: Map of domain to minimum required amount
-        "400":
+        '400':
           description: Invalid input
           content:
             application/json:
@@ -770,7 +772,7 @@ paths:
                     type: string
                   message:
                     type: string
-        "500":
+        '500':
           description: Server error
           content:
             application/json:
@@ -805,13 +807,13 @@ paths:
                   type: string
                   format: bigint
       responses:
-        "200":
+        '200':
           description: Successful response with a TransactionRequest object
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/TransactionRequest"
-        "400":
+                $ref: '#/components/schemas/TransactionRequest'
+        '400':
           description: Invalid input
           content:
             application/json:
@@ -822,7 +824,7 @@ paths:
                     type: string
                   message:
                     type: string
-        "500":
+        '500':
           description: Server error
           content:
             application/json:
@@ -858,7 +860,7 @@ paths:
               - xERC20
               - other
       responses:
-        "200":
+        '200':
           description: Successful retrieval of assets
           content:
             application/json:
@@ -868,8 +870,8 @@ paths:
                   assets:
                     type: array
                     items:
-                      $ref: "#/components/schemas/Asset"
-        "400":
+                      $ref: '#/components/schemas/Asset'
+        '400':
           description: Invalid Request
           content:
             application/json:
@@ -880,7 +882,7 @@ paths:
                     type: string
                   message:
                     type: string
-        "500":
+        '500':
           description: Server error
           content:
             application/json:
@@ -925,7 +927,7 @@ paths:
             type: integer
           description: The destination chain ID. If omitted, returns data for all chains.
       responses:
-        "200":
+        '200':
           description: A list of liquidity flows for the specified query parameters.
           content:
             application/json:
@@ -985,7 +987,7 @@ paths:
                               avg_discount:
                                 type: number
                                 description: The average discount in basis points.
-        "400":
+        '400':
           description: Invalid input
           content:
             application/json:
@@ -996,7 +998,7 @@ paths:
                     type: string
                   message:
                     type: string
-        "500":
+        '500':
           description: Server error
           content:
             application/json:
@@ -1041,7 +1043,7 @@ paths:
             type: string
           description: The ticker hash of the asset for which you want to get the clearing volume. If omitted, returns data for all assets.
       responses:
-        "200":
+        '200':
           description: A list of clearing volumes for the specified query parameters.
           content:
             application/json:
@@ -1127,7 +1129,7 @@ paths:
                                     type: number
                                     format: float
                                     description: The clearing volume on the specific day.
-        "400":
+        '400':
           description: Invalid input
           content:
             application/json:
@@ -1138,7 +1140,7 @@ paths:
                     type: string
                   message:
                     type: string
-        "500":
+        '500':
           description: Server error
           content:
             application/json:
@@ -1168,7 +1170,7 @@ paths:
             type: string
           description: The asset ticker on the specified chain.
       responses:
-        "200":
+        '200':
           description: The current state of the queue and intents.
           content:
             application/json:
@@ -1216,6 +1218,9 @@ paths:
                         owner:
                           type: string
                           description: The owner of the intent.
+                        entryEpoch:
+                          type: integer
+                          description: The entry epoch of the intent.
                   depositQueue:
                     nullable: true
                     type: array
@@ -1226,6 +1231,7 @@ paths:
                         - intentId
                         - origin
                         - amount
+                        - epoch
                       properties:
                         intentId:
                           type: string
@@ -1236,6 +1242,9 @@ paths:
                         amount:
                           type: string
                           description: The amount for the intent.
+                        epoch:
+                          type: integer
+                          description: The epoch of the intent.
                   incomingIntents:
                     type: object
                     nullable: true
@@ -1248,6 +1257,7 @@ paths:
                           - intentId
                           - initiator
                           - amount
+                          - destinations
                         properties:
                           intentId:
                             type: string
@@ -1258,9 +1268,14 @@ paths:
                           amount:
                             type: string
                             description: The amount for the intent.
-        "400":
+                          destinations:
+                            type: array
+                            items:
+                              type: string
+                              description: The destinations of the intent.
+        '400':
           description: Invalid chain or asset parameter.
-        "500":
+        '500':
           description: Internal server error.
 
   /history/{intentId}:
@@ -1275,7 +1290,7 @@ paths:
             type: string
           description: Unique identifier for the intent.
       responses:
-        "200":
+        '200':
           description: Successful response with queue and intent state information.
           content:
             application/json:
@@ -1321,15 +1336,15 @@ paths:
                         invoiceIntentId:
                           type: string
                           description: ID of the invoice intent.
-                          example: "0x11"
+                          example: '0x11'
                         invoiceRemainingAmount:
                           type: number
                           description: Remaining amount for the invoice.
-                          example: "0"
+                          example: '0'
                         depositRewards:
                           type: number
                           description: Rewards provided to depositors for this invoice.
-                          example: "500"
+                          example: '500'
                   invoiceEnqueued:
                     type: object
                     nullable: true
@@ -1400,11 +1415,11 @@ paths:
                       isSettled:
                         type: boolean
                         description: Indicates if the deposit is settled.
-        "400":
+        '400':
           description: Invalid intentId parameter.
-        "404":
+        '404':
           description: Intent not found.
-        "500":
+        '500':
           description: Internal server error.
 
   /history/{intentId}/invoice-processing:
@@ -1429,7 +1444,7 @@ paths:
           schema:
             type: number
       responses:
-        "200":
+        '200':
           description: Successful response with history of invoice processing
           content:
             application/json:
@@ -1494,9 +1509,9 @@ paths:
                   nextCursor:
                     type: string
                     nullable: true
-        "400":
+        '400':
           description: Invalid chain or asset parameter.
-        "500":
+        '500':
           description: Internal server error.
 
 # Response schemas for request
@@ -1643,21 +1658,21 @@ components:
       properties:
         intent_id:
           type: string
-          description: "A string representing the intent ID"
+          description: 'A string representing the intent ID'
         owner:
           type: string
-          description: "Invoice owner address"
+          description: 'Invoice owner address'
         entry_epoch:
           type: integer
           format: int64
-          description: "The epoch when the invoice was created"
+          description: 'The epoch when the invoice was created'
         amount:
           type: string
-          description: "Amount of the invoice"
+          description: 'Amount of the invoice'
         discountBps:
           type: integer
           format: int64
-          description: "The current discount of the invoice in BPS"
+          description: 'The current discount of the invoice in BPS'
         origin:
           type: string
         destinations:
@@ -1665,8 +1680,8 @@ components:
           items:
             type: string
         hub_status:
-          $ref: "#/components/schemas/IntentStatus"
-          description: "The status of the intent on Hub domain"
+          $ref: '#/components/schemas/IntentStatus'
+          description: 'The status of the intent on Hub domain'
           nullable: true
         ticker_hash:
           type: string
@@ -1678,110 +1693,110 @@ components:
       properties:
         intent_id:
           type: string
-          description: "A string representing the intent ID"
+          description: 'A string representing the intent ID'
         queue_idx:
           type: integer
           format: int64
-          description: "Queue index"
+          description: 'Queue index'
         message_id:
           type: string
-          description: "A string representing the message ID"
+          description: 'A string representing the message ID'
         status:
-          $ref: "#/components/schemas/IntentStatus"
-          description: "The status of the intent"
+          $ref: '#/components/schemas/IntentStatus'
+          description: 'The status of the intent'
         receiver:
           type: string
-          description: "Receiver address"
+          description: 'Receiver address'
         input_asset:
           type: string
-          description: "Input asset"
+          description: 'Input asset'
         output_asset:
           type: string
-          description: "Output asset"
+          description: 'Output asset'
         origin_amount:
           type: string
-          description: "Origin amount"
+          description: 'Origin amount'
         destination_amount:
           type: string
           nullable: true
-          description: "Destination amount"
+          description: 'Destination amount'
         origin:
           type: string
-          description: "Origin address"
+          description: 'Origin address'
         destinations:
           type: array
           items:
             type: string
-            description: "Destination address"
+            description: 'Destination address'
         nonce:
           type: integer
           format: int64
-          description: "Nonce"
+          description: 'Nonce'
         transaction_hash:
           type: string
-          description: "Transaction hash (intent_created tx hash)"
+          description: 'Transaction hash (intent_created tx hash)'
         receive_tx_hash:
           type: string
           nullable: true
-          description: "Receive transaction hash"
+          description: 'Receive transaction hash'
         intent_created_timestamp:
           type: integer
           format: int64
-          description: "Intent Created timestamp"
+          description: 'Intent Created timestamp'
         settlement_timestamp:
           type: integer
           format: int64
           nullable: true
-          description: "Receive timestamp"
+          description: 'Receive timestamp'
         intent_created_block_number:
           type: integer
           format: int64
-          description: "Intent created block number"
+          description: 'Intent created block number'
         receive_blocknumber:
           type: integer
           format: int64
           nullable: true
-          description: "Receive block number"
+          description: 'Receive block number'
         tx_origin:
           type: string
-          description: "Transaction origin address"
+          description: 'Transaction origin address'
         tx_nonce:
           type: integer
           format: int64
-          description: "Transaction nonce"
+          description: 'Transaction nonce'
         auto_id:
           type: integer
           format: int64
-          description: "Auto-generated identifier"
+          description: 'Auto-generated identifier'
         max_fee:
           type: string
-          description: "Maximum fee"
+          description: 'Maximum fee'
         call_data:
           type: string
           nullable: true
-          description: "Call data"
+          description: 'Call data'
         filled:
           type: boolean
           nullable: true
-          description: "Filler address"
+          description: 'Filler address'
         initiator:
           type: string
           nullable: true
-          description: "Initiator address"
+          description: 'Initiator address'
         origin_gas_fees:
           type: string
-          description: "Origin gas fees"
+          description: 'Origin gas fees'
         destination_gas_fees:
           type: string
           nullable: true
-          description: "Destination gas fees"
+          description: 'Destination gas fees'
         hub_settlement_domain:
           type: string
-          description: "Settlement domain for an intent"
+          description: 'Settlement domain for an intent'
           nullable: true
         ttl:
           type: number
-          description: "TTL set for an intent"
+          description: 'TTL set for an intent'
           nullable: true
       required:
         - intent_id
