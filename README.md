@@ -26,7 +26,7 @@ The Everclear Collective is an ecosystem composed of autonomous entities and ind
 
 ### The Everclear DAO
 
-The Everclear DAO, comprised of NEXT token holders, governs critical aspects of Everclear's smart contracts and is responsible for allocating resources from the DAO treasury to fund protocol development and growth.
+The Everclear DAO, comprised of CLEAR token holders, governs critical aspects of Everclear's smart contracts and is responsible for allocating resources from the DAO treasury to fund protocol development and growth.
 
 ### The Everclear Foundation
 
