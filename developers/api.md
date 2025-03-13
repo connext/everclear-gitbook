@@ -14,66 +14,62 @@ Mainnet API: `https://api.everclear.org`
 
 
 
-{% swagger src="../.gitbook/assets/OpenApi.yaml" path="/intents" method="get" %}
+{% openapi src="../.gitbook/assets/OpenApi.yaml" path="/intents" method="get" %}
 [OpenApi.yaml](../.gitbook/assets/OpenApi.yaml)
-{% endswagger %}
+{% endopenapi %}
 
-{% swagger src="../.gitbook/assets/OpenApi.yaml" path="/intents" method="post" %}
+{% openapi src="../.gitbook/assets/OpenApi.yaml" path="/intents" method="post" %}
 [OpenApi.yaml](../.gitbook/assets/OpenApi.yaml)
-{% endswagger %}
+{% endopenapi %}
 
-{% swagger src="../.gitbook/assets/OpenApi.yaml" path="/intents/{intentId}" method="get" %}
+{% openapi src="../.gitbook/assets/OpenApi.yaml" path="/intents/{intentId}" method="get" %}
 [OpenApi.yaml](../.gitbook/assets/OpenApi.yaml)
-{% endswagger %}
+{% endopenapi %}
 
-{% swagger src="../.gitbook/assets/OpenApi.yaml" path="/intents/{intentId}" method="post" %}
+{% openapi src="../.gitbook/assets/OpenApi.yaml" path="/intents/{intentId}" method="post" %}
 [OpenApi.yaml](../.gitbook/assets/OpenApi.yaml)
-{% endswagger %}
+{% endopenapi %}
 
-{% swagger src="../.gitbook/assets/OpenApi.yaml" path="/intents/{intentId}/execute" method="post" %}
+{% openapi src="../.gitbook/assets/OpenApi.yaml" path="/intents/{intentId}/execute" method="post" %}
 [OpenApi.yaml](../.gitbook/assets/OpenApi.yaml)
-{% endswagger %}
+{% endopenapi %}
 
-{% swagger src="../.gitbook/assets/OpenApi.yaml" path="/intents/{intentId}/return-unsupported" method="post" %}
+{% openapi src="../.gitbook/assets/OpenApi.yaml" path="/intents/{intentId}/return-unsupported" method="post" %}
 [OpenApi.yaml](../.gitbook/assets/OpenApi.yaml)
-{% endswagger %}
+{% endopenapi %}
 
-{% swagger src="../.gitbook/assets/OpenApi.yaml" path="/invoices" method="get" %}
+{% openapi src="../.gitbook/assets/OpenApi.yaml" path="/invoices" method="get" %}
 [OpenApi.yaml](../.gitbook/assets/OpenApi.yaml)
-{% endswagger %}
+{% endopenapi %}
 
-{% swagger src="../.gitbook/assets/OpenApi.yaml" path="/invoices/{intentId}" method="get" %}
+{% openapi src="../.gitbook/assets/OpenApi.yaml" path="/invoices/{intentId}" method="get" %}
 [OpenApi.yaml](../.gitbook/assets/OpenApi.yaml)
-{% endswagger %}
+{% endopenapi %}
 
-{% swagger src="../.gitbook/assets/OpenApi.yaml" path="/invoices/{intentId}/min-amounts" method="get" %}
+{% openapi src="../.gitbook/assets/OpenApi.yaml" path="/invoices/{intentId}/min-amounts" method="get" %}
 [OpenApi.yaml](../.gitbook/assets/OpenApi.yaml)
-{% endswagger %}
+{% endopenapi %}
 
-{% swagger src="../.gitbook/assets/OpenApi.yaml" path="/withdraw" method="post" %}
+{% openapi src="../.gitbook/assets/OpenApi.yaml" path="/withdraw" method="post" %}
 [OpenApi.yaml](../.gitbook/assets/OpenApi.yaml)
-{% endswagger %}
+{% endopenapi %}
 
-{% swagger src="../.gitbook/assets/OpenApi.yaml" path="/configs/assets" method="get" %}
+{% openapi src="../.gitbook/assets/OpenApi.yaml" path="/metrics/liquidity-flow" method="get" %}
 [OpenApi.yaml](../.gitbook/assets/OpenApi.yaml)
-{% endswagger %}
+{% endopenapi %}
 
-{% swagger src="../.gitbook/assets/OpenApi.yaml" path="/metrics/liquidity-flow" method="get" %}
+{% openapi src="../.gitbook/assets/OpenApi.yaml" path="/metrics/clearing-volume" method="get" %}
 [OpenApi.yaml](../.gitbook/assets/OpenApi.yaml)
-{% endswagger %}
+{% endopenapi %}
 
-{% swagger src="../.gitbook/assets/OpenApi.yaml" path="/metrics/clearing-volume" method="get" %}
+{% openapi src="../.gitbook/assets/OpenApi.yaml" path="/economy/{chain}/{tickerHash}" method="get" %}
 [OpenApi.yaml](../.gitbook/assets/OpenApi.yaml)
-{% endswagger %}
+{% endopenapi %}
 
-{% swagger src="../.gitbook/assets/OpenApi.yaml" path="/economy/{chain}/{tickerHash}" method="get" %}
+{% openapi src="../.gitbook/assets/OpenApi.yaml" path="/history/{intentId}" method="get" %}
 [OpenApi.yaml](../.gitbook/assets/OpenApi.yaml)
-{% endswagger %}
+{% endopenapi %}
 
-{% swagger src="../.gitbook/assets/OpenApi.yaml" path="/history/{intentId}" method="get" %}
+{% openapi src="../.gitbook/assets/OpenApi.yaml" path="/history/{intentId}/invoice-processing" method="get" %}
 [OpenApi.yaml](../.gitbook/assets/OpenApi.yaml)
-{% endswagger %}
-
-{% swagger src="../.gitbook/assets/OpenApi.yaml" path="/history/{intentId}/invoice-processing" method="get" %}
-[OpenApi.yaml](../.gitbook/assets/OpenApi.yaml)
-{% endswagger %}
+{% endopenapi %}
