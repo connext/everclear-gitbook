@@ -1,6 +1,6 @@
 # Rebalancers
 
-> For all integrations, follow the steps in the API section which will construct an order that is signed by our fee signer and can be submitted to the `FeeAdapter` contract to create a new intent. Orders submitted directly to the `EverclearSpoke` will revert as well as any orders submitted to the `FeeAdapter` without a validly signed payload.
+> For all integrations, follow the steps in the Creating a new Intent section using the API which will construct a transaction request with a signed payload from our fee signer. The signed payload is required to submit a valid order to the `FeeAdapter` contract when creating a new intent.
 
 ## **Process Overview**
 
@@ -64,6 +64,7 @@ The `feeParams` consists of `fee`, `deadline`, and `signature` which would be ge
  * @param _maxFee The maximum fee that can be taken by solvers
  * @param _ttl The time to live of the intent
  * @param _data The data of the intent
+ * @param _feeParams The fee parameters
  * @return _intentId The ID of the intent
  * @return _intent The intent object
 */
@@ -75,7 +76,7 @@ The `feeParams` consists of `fee`, `deadline`, and `signature` which would be ge
     uint256 _amount,
     uint24 _maxFee,
     uint48 _ttl,
-    bytes calldata _data
+    bytes calldata _data,
     IFeeAdapter.FeeParams calldata _feeParams
   ) external returns (bytes32 _intentId, Intent memory _intent);
 ```

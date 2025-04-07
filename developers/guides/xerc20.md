@@ -1,6 +1,6 @@
 # xERC20
 
-> For all integrations, follow the steps in the API section which will construct an order that is signed by our fee signer and can be submitted to the `FeeAdapter` contract to create a new intent. Orders submitted directly to the `EverclearSpoke` will revert as well as any orders submitted to the `FeeAdapter` without a validly signed payload.
+> For all integrations, follow the steps in the Creating a new Intent section using the API which will construct a transaction request with a signed payload from our fee signer. The signed payload is required to submit a valid order to the `FeeAdapter` contract when creating a new intent.
 
 ## Process Overview
 
@@ -28,16 +28,29 @@ _If the minting limit has been reached, the `XERC20Module` will store the amount
 
 ## Creating an xERC20 Intent
 
-As a user, you will need to interact with the Spoke contract on the origin domain to create a new intent that will be processed by the netting system.
+As a user, you will need to interact with the FeeAdapter contract on the origin domain to create a new intent that will be processed by the netting system.
 
-### `newIntent` called on `Spoke` contract
+### `newIntent` called on `FeeAdapter` contract
 
-The entry point to bridge an XERC20 is newIntent on the Spoke contract of the origin domain. The `destinations` field can be defined as a single item or an array - the Hub will select the first supported domain to bridge to so we recommend solely providing a supported domain.
+The entry point to bridge an XERC20 is newIntent on the FeeAdapter contract of the origin domain. The `destinations` field can be defined as a single item or an array - the Hub will select the first supported domain to bridge to so we recommend solely providing a supported domain.
 
 The `maxFee` **must be set to 0** as `maxFee` is not applicable to the XERC20 order type. The `ttl` must **be set to 0** to indicate the order should be routed via the native XERC20 route.
 
+The `feeParams` consists of `fee`, `deadline`, and `signature` which would be generated through interacting with the API. The `fee` will be the amount being charged to the user, the `deadline` is the period of time where the fee is valid, and the `signature` will be the signed payload from the Everclear fee signer to confirm the provided inputs provided are valid.&#x20;
+
 ```solidity
-/**
+  /**
+  * @param fee The fee being charged on the inputAsset
+  * @param deadline The deadline timestamp after which the sig is no longer valid
+  * @param sig The signed payload from the fee signer for the intent 
+  */
+  struct FeeParams {
+    uint256 fee;
+    uint256 deadline;
+    bytes sig;
+  }
+  
+  /**
  * @notice Creates a new intent
  * @param _destinations The possible destination chains of the intent
  * @param _receiver The destinantion address of the intent
@@ -47,6 +60,7 @@ The `maxFee` **must be set to 0** as `maxFee` is not applicable to the XERC20 or
  * @param _maxFee The maximum fee that can be taken by solvers
  * @param _ttl The time to live of the intent
  * @param _data The data of the intent
+ * @param _feeParams The fee parameters
  * @return _intentId The ID of the intent
  * @return _intent The intent object
 */
@@ -59,10 +73,11 @@ The `maxFee` **must be set to 0** as `maxFee` is not applicable to the XERC20 or
     uint24 _maxFee,
     uint48 _ttl,
     bytes calldata _data
+    IFeeAdapter.FeeParams calldata _feeParams
   ) external returns (bytes32 _intentId, Intent memory _intent);
 ```
 
-When the `Spoke` contract completes the `newIntent` call, the intent will be added to the `intentQueue`, and periodically sent to the `Hub` contract on the clearing chain - depending on the configuration of the max queue size and age for the origin domain.
+When the `FeeAdapter` contract completes the `newIntent` call, it will charge the user fees, and forward the call to the `EverclearSpoke`. The intent will then be added to the `intentQueue`, and periodically sent to the `Hub` contract on the clearing chain - depending on the configuration of the max queue size and age for the origin domain.
 
 An intent can be created by interacting directly with the contract. The following is a simple example sending 100 xTOKEN via the XERC20 route from Sepolia Testnet to BNB Testnet.
 
@@ -72,11 +87,11 @@ import { ethers, BigNumberish } from 'ethers'
 // Wallet and contract configuration //
 const PRIVATE_KEY = "<PRIVATE_KEY>";
 const RPC_URL_ARB = "<RPC_URL>";
-const SPOKE_ADDRESS = ""; // Spoke on origin chain
-const SPOKE_ABI = ["function newIntent(uint32[] _destinations,address _to, address _inputAsset, address _outputAsset, uint256 _amount, bytes _data) external"];
+const FEE_ADAPTER = ""; // FeeAdapter on origin chain
 const ERC20_ABI = ["function approve(address spender, uint256 amount) external"]
 
 // Function inputs //
+const ORIGIN = "11155111"
 const DEST = ["97"] // Single item - Sending to BNB testnet
 const DESTS = ["97","xyz"] // Multiple items - Sepolia and xyz testnet
 const TO = "0x..." // Receiver address on destination domain
@@ -97,11 +112,36 @@ async function newIntent(): Promise<void> {
 	
 	// Approving and waiting for tx to be mined
 	const approveTx = await xTokenContract.approve(SPOKE_ADDRESS, amount);
-	await approveTx.wait(5);
-	
-	// Calling new intent to create an intent on OP
-	const newIntentTx = await spokeContract.newIntent(DEST, TO, XTOKEN_SEPOLIA_TEST, USDT_BNB_TEST, AMOUNT_IN, MAX_FEE, TTL, ""); 
-	await newIntentTx.wait(5);
+        await approveTx.wait(5);
+    
+        // Constructing the payload
+        const payload = {
+            origin: ORIGIN, // Example: Arbitrum Sepolia
+            destinations: DEST, // Array of destination domains
+            to: TO,
+            inputAsset: XTOKEN_SEPOLIA_TEST,
+            amount: AMOUNT_IN.toString(),
+            callData: "0x", // empty callData for netting orders
+            maxFee: MAX_FEE.toString(),
+            permit2Params: {
+              nonce: "0",        // Placeholder values
+              deadline: "0",
+              signature: "0x"
+            }
+        };
+    
+        // Using API to generate TransactionRequest for a newIntent
+        const txRequest = await fetch('https://api.testnet.everclear.org/intents', {
+            method: 'POST',
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify(payload)
+        });
+    
+        // Submitting the order
+        const txResponse = await wallet.sendTransaction(txRequest);
+        const receipt = await txResponse.wait();
 }
 
 newIntent(); 

@@ -1,6 +1,6 @@
 # Protocol Mechanics
 
-> For all integrations, follow the steps in the API section which will construct an order that is signed by our fee signer and can be submitted to the `FeeAdapter` contract to create a new intent. Orders submitted directly to the `EverclearSpoke` will revert as well as any orders submitted to the `FeeAdapter` without a validly signed payload.
+> For all integrations, follow the steps in the integration guides using the API which will construct a transaction request with a signed payload from our fee signer. The signed payload is required to submit a valid order to the `FeeAdapter` contract when creating a new intent.
 
 ## **Process Overview**
 

@@ -10,9 +10,20 @@ description: >-
 
 ### Creation
 
-Intents are created by calling `newIntent` on the `Spoke` contracts:
+Intents are created by calling `newIntent` on the `FeeAdapter` contract:
 
 ```solidity
+/**
+* @param fee The fee being charged on the inputAsset
+* @param deadline The deadline timestamp after which the sig is no longer valid
+* @param sig The signed payload from the fee signer for the intent 
+*/
+struct FeeParams {
+  uint256 fee;
+  uint256 deadline;
+  bytes sig;
+}
+
 /**
    * @notice Creates a new intent
    * @param _destinations The destination chains of the intent
@@ -23,6 +34,9 @@ Intents are created by calling `newIntent` on the `Spoke` contracts:
    * @param maxFee The maximum fee that can be taken by solvers
    * @param ttl The time to live of the intent
    * @param _data The data of the intent
+   * @param _feeParams The fee parameters
+   * @return _intentId The ID of the intent
+   * @return _intent The intent object
    */
   function newIntent(
     uint32[] memory _destinations,
@@ -32,11 +46,12 @@ Intents are created by calling `newIntent` on the `Spoke` contracts:
     uint256 _amount,
     uint24 _maxFee,
     uint48 _ttl,
-    bytes calldata _data
+    bytes calldata _data,
+    IFeeAdapter.FeeParams calldata _feeParams
   ) external whenNotPaused returns (bytes32 _intentId, Intent memory _intent) {
 ```
 
-This method will debit funds from the caller, emit an `IntentAdded` event, and insert an `Intent` message into the queue.&#x20;
+This method will debit funds from the caller, charge a fee, and forward the call onto the EverclearSpoke contract. The Spoke will then emit an `IntentAdded` event, and insert an `Intent` message into the queue.&#x20;
 
 ### Intent Queue Dispatch
 

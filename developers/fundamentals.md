@@ -22,10 +22,10 @@ There are several on and off-chain components in the system.
 
 #### **Supported Domains**
 
-* `Spoke`. This spoke contract holds funds from created intents (used as liquidity for settlement). It formats messages from the `intentQueue` and dispatches them via the `SpokeGateway` contract.
+* `FeeAdapter`. This spoke contract is responsible for charging dynamic fees to users via the submission of a signed payload from our fee signer and it forwards all new intents onto the Spoke.
+* `EverclearSpoke`. This spoke contract holds funds from created intents (used as liquidity for settlement). It formats messages from the `intentQueue` and dispatches them via the `SpokeGateway` contract.
 * `SpokeGateway`. This spoke contract is responsible for dispatching messages to the transport layer, and formatting the inbound settlement messages to properly call the functions on the transport layer.
 * `XERC20Module`. This spoke contract is responsible for burning and minting XERC20 tokens when interacting with the system.&#x20;
-* `FeeAdapter`. This spoke contract is responsible for charging dynamic fees to users via the submission of a signed payload from our fee signer.
 
 #### **Clearing Layer (Hub)**
 
