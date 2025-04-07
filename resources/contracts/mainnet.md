@@ -19,6 +19,7 @@ description: >-
 | ZkSync    | 324     | 324      | Spoke |
 | Ronin     | 2020    | 2020     | Spoke |
 | Base      | 8453    | 8453     | Spoke |
+| Apechain  | 33139   | 33139    | Spoke |
 | Mode      | 34443   | 34443    | Spoke |
 | Arbitrum  | 42161   | 421614   | Spoke |
 | Avalanche | 43114   | 43114    | Spoke |
