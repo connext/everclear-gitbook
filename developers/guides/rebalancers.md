@@ -1,16 +1,18 @@
 # Rebalancers
 
+> For all integrations, follow the steps in the API section which will construct an order that is signed by our fee signer and can be submitted to the `FeeAdapter` contract to create a new intent. Orders submitted directly to the `EverclearSpoke` will revert as well as any orders submitted to the `FeeAdapter` without a validly signed payload.
+
 ## **Process Overview**
 
 The `rebalancing` problem occurs when a Rebalancers funds are spread across domains and need to be moved to different domains to support user activity and/or seize opportunities. However, the rebalancing process can be costly, manual, and complex where delays can lead to missed opportunities.
 
 Rebalancers are often centralised exchanges, solvers, and market makers using Everclear to rebalance their funds across domains. By using Everclear’s netting system they will be able to cut their costs by up to 10x and reduce the complexity of the rebalancing process.
 
-The rebalancing process is simplified to a single transaction: calling `newIntent` on a Spoke contract from the origin domain with the amount and destination specified. Once this has been executed, the Rebalancer can wait for their intent to be netted with another and funds will be received on the destination domain in their wallet (or to a specified recipient).
+The rebalancing process is simplified to a single transaction: calling `newIntent` on a FeeAdapter contract from the origin domain with the amount and destination specified. Once this has been executed, the Rebalancer can wait for their intent to be netted with another and funds will be received on the destination domain in their wallet (or to a specified recipient).
 
 The steps involved in the netting process are:
 
-1. Rebalancer calls `newIntent` and funds are pulled from wallet to Spoke contract
+1. Rebalancer calls `newIntent` and funds are pulled from wallet to `FeeAdapter` contract
 2. Intents are transported from Spoke to clearing chain periodically when the queue size is more than a threshold of items or the oldest item in the queue is more than  threshold of minutes
 3. Clearing chain receives intent and adds to deposit queue if it can be matched with an invoice OR adds intent to the invoice queue if there are no invoices to match with
 4. Invoice and deposit queue is processed every epoch. Matched intents are added to the settlement queue and unmatched intents are added to the invoice queue
@@ -28,17 +30,30 @@ Rebalancers testing using our protocol are recommended to send intents with **va
 
 ## **Creating a new intent**
 
-As a Rebalancer, you will need to interact with the `Spoke` contract on the origin domain to create a new intent that will be processed by the netting system.
+As a Rebalancer, you will need to interact with the `FeeAdapter` contract on the origin domain to create a new intent that will be processed by the netting system.
 
-### `newIntent` called on `Spoke` contract
+### `newIntent` called on `FeeAdapter` contract
 
-The entry point to rebalance is `newIntent` on the `Spoke` contract of the origin domain. The `destinations` field can be defined as a single item in an array if the Rebalancer wants to rebalance funds to a specific domain i.e. from OP to ARB. However, if the Rebalancer wants to rebalance to one of any domains they can provide a list and the system will rebalance to the domain that has the highest liquidity and lowest discoutn at settlement time.
+The entry point to rebalance is `newIntent` on the `FeeAdapter` contract of the origin domain. The `destinations` field can be defined as a single item in an array if the Rebalancer wants to rebalance funds to a specific domain i.e. from OP to ARB. However, if the Rebalancer wants to rebalance to one of any domains they can provide a list and the system will rebalance to the domain that has the highest liquidity and lowest discount at settlement time.
 
 The `maxFee` field should **always be specified as 0** as maxFee is only applicable in cases where an order should be routed to the solver pathway and does not apply to the netting pathway.
 
 The `ttl` input should **always be specified as 0** to indicate the order should be routed via the netting system on the Hub. When `ttl` is non-zero an order is routed via a separate solver pathway where the intent creator requires a dedicated solver to fill the intent for a fee. This pathway will not be supported at launch; Rebalancers must ensure all netting orders **always specify `ttl` as 0.**
 
+The `feeParams` consists of `fee`, `deadline`, and `signature` which would be generated through interacting with the API. The `fee` will be the amount being charged to the user, the `deadline` is the period of time where the fee is valid, and the `signature` will be the signed payload from the Everclear fee signer to confirm the provided inputs provided are valid.&#x20;
+
 ```solidity
+  /**
+  * @param fee The fee being charged on the inputAsset
+  * @param deadline The deadline timestamp after which the sig is no longer valid
+  * @param sig The signed payload from the fee signer for the intent 
+  */
+  struct FeeParams {
+    uint256 fee;
+    uint256 deadline;
+    bytes sig;
+  }
+  
 /**
  * @notice Creates a new intent
  * @param _destinations The possible destination chains of the intent
@@ -61,10 +76,11 @@ The `ttl` input should **always be specified as 0** to indicate the order should
     uint24 _maxFee,
     uint48 _ttl,
     bytes calldata _data
+    IFeeAdapter.FeeParams calldata _feeParams
   ) external returns (bytes32 _intentId, Intent memory _intent);
 ```
 
-When the `Spoke` contract completes the `newIntent` call, the intent will be added to the `intentQueue`, and periodically sent to the `Hub` contract on the Clearing chain - depending on the configuration of the max queue size and age for the origin domain.
+When the `FeeAdapter` contract completes the `newIntent` call, it will charge the user fees, and forward the call to the `EverclearSpoke`. The intent will then be added to the `intentQueue`, and periodically sent to the `Hub` contract on the Clearing chain - depending on the configuration of the max queue size and age for the origin domain.
 
 An intent can be created by interacting directly with the contract. The following is a simple example sending 100 USDT via the netting system from Sepolia Testnet to BNB Testnet - `ttl` and `maxFee` are specified as 0 to indicate the netting system should be used.
 
@@ -74,11 +90,12 @@ import { ethers, BigNumberish } from 'ethers'
 // Wallet and contract configuration //
 const PRIVATE_KEY = "<PRIVATE_KEY>";
 const RPC_URL_ARB = "<RPC_URL>";
-const SPOKE_ADDRESS = ""; // Spoke on origin chain
+const FEE_ADAPTER = ""; // FeeAdapter on origin chain
 const SPOKE_ABI = ["function newIntent(uint32[] _destinations, address _receiver, address _inputAsset, address _outputAsset, uint256 _amount, uint24 _maxFee, uint48 _ttl, bytes _data) external"];
 const ERC20_ABI = ["function approve(address spender, uint256 amount) external"]
 
 // Function inputs //
+const ORIGIN = "11155111"
 const DEST = ["97"] // Single item - Sending to BNB testnet
 const DESTS = ["97","xyz"] // Multiple items - Sepolia and xyz testnet
 const TO = "0x..." // Receiver address on destination domain
@@ -95,15 +112,39 @@ async function newIntent(): Promise<void> {
     
     // Configuring the contract instance
     const usdtContract = new ethers.Contract(USDT_SEPOLIA_TEST, ERC20_ABI, wallet);
-    const spokeContract = new ethers.Contract(SPOKE_ADDRESS, SPOKE_ABI, wallet);
     
     // Approving and waiting for tx to be mined
-    const approveTx = await usdtContract.approve(SPOKE_ADDRESS, amount);
+    const approveTx = await usdtContract.approve(FEE_ADAPTER, amount);
     await approveTx.wait(5);
     
-    // Calling new intent to create an intent on OP
-    const newIntentTx = await spokeContract.newIntent(DEST, TO, USDT_SEPOLIA_TEST, USDT_BNB_TEST, AMOUNT_IN, MAX_FEE, TTL, ""); 
-    await newIntentTx.wait(5);
+    // Constructing the payload
+    const payload = {
+        origin: ORIGIN, // Example: Arbitrum Sepolia
+        destinations: DEST, // Array of destination domains
+        to: TO,
+        inputAsset: USDT_SEPOLIA_TEST,
+        amount: AMOUNT_IN.toString(),
+        callData: "0x", // empty callData for netting orders
+        maxFee: MAX_FEE.toString(),
+        permit2Params: {
+          nonce: "0",        // Placeholder values
+          deadline: "0",
+          signature: "0x"
+        }
+    };
+    
+    // Using API to generate TransactionRequest for a newIntent
+    const txRequest = await fetch('https://api.testnet.everclear.org/intents', {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(payload)
+    });
+    
+    // Submitting the order
+    const txResponse = await wallet.sendTransaction(txRequest);
+    const receipt = await txResponse.wait();
 }
 
 newIntent(); 

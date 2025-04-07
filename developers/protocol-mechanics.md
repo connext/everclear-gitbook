@@ -1,5 +1,7 @@
 # Protocol Mechanics
 
+> For all integrations, follow the steps in the API section which will construct an order that is signed by our fee signer and can be submitted to the `FeeAdapter` contract to create a new intent. Orders submitted directly to the `EverclearSpoke` will revert as well as any orders submitted to the `FeeAdapter` without a validly signed payload.
+
 ## **Process Overview**
 
 Everclear’s netting process is composed of five steps:
@@ -88,9 +90,7 @@ There are a few costs that will reduce the amount a user will receive when using
 * Solver fee (if applicable)
 * Discounts (if intents become invoices)
 
-When creating a `newIntent`, the user will be charged the protocol fee to use the netting system currently set between 1 - 10 BPS.&#x20;
-
-Then there is the usual gas fee to submit a transaction onchain.
+When creating a `newIntent`, the user will be charged the protocol fee to use the netting system currently calculated off-chain and charged when submitting an order to the `FeeAdapter` contract plus the gas fee for submitting a transaction onchain.
 
 In addition, a solver fee should be supplied if the user specifies `ttl > 0` when creating a new intent. This is the gas cost for a solver to execute the intent on destination. It should be high enough to incentivize solvers to fill the intent.
 

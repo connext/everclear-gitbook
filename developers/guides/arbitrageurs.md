@@ -1,5 +1,7 @@
 # Arbitrageurs
 
+> For all integrations, follow the steps in the API section which will construct an order that is signed by our fee signer and can be submitted to the `FeeAdapter` contract to create a new intent. Orders submitted directly to the `EverclearSpoke` will revert as well as any orders submitted to the `FeeAdapter` without a validly signed payload.
+
 ## **Process Overview**
 
 Arbitrageurs are professional and individual actors monitoring invoices that have profitable discounts and providing liquidity when Rebalancers can not be netted against each other. By using Everclear, Arbitrageurs achieve attractive APRs on their portfolio whilst taking on low risk by purchasing discounted invoices on supported chains.
@@ -7,7 +9,7 @@ Arbitrageurs are professional and individual actors monitoring invoices that hav
 The process for Arbitrageurs is composed of two steps:
 
 1. Monitoring discounted invoices in the system to identify opportunities.
-2. Calling `newIntent` on the Spoke contract that a discounted invoice is travelling to (i.e. calling `newIntent` on the destination domain specified by the intent being purchased).
+2. Calling `newIntent` on the `FeeAdapter` contract that a discounted invoice is travelling to (i.e. calling `newIntent` on the destination domain specified by the intent being purchased).
 
 If the Arbitrageur is the first to purchase the intent on the destination domain they will receive the discounted amount as a reward.
 
@@ -22,8 +24,8 @@ For example:
 The steps involved in the arbitrage process are:
 
 1. Monitor discounted invoice
-2. Call `newIntent` on Spoke contract (destination domain of discounted invoice) and funds will be pulled from wallet to the contract
-3. Intent transported to the Clearing chain periodically when the queue size is more than threshold of items or the oldest item in the queue is more than thresold of minutes
+2. Call `newIntent` on `FeeAdapter` contract (destination domain of discounted invoice) and funds will be pulled from wallet to the contract
+3. Intent transported to the Clearing chain periodically when the queue size is more than threshold of items or the oldest item in the queue is more than threshold of minutes
 4. Clearing chain receives intent and adds to deposit queue
 5. Invoice and deposit queue are processed every epoch and matched intents are added to the settlement queue
 6. Settlement queue processed and transported to the Spoke when the queue size is more than threshold of items or the oldest item in the queue is more than threshold od minutes
@@ -31,7 +33,7 @@ The steps involved in the arbitrage process are:
 
 _// NOTE: These are the steps when an Arbitrageur successfully sends the first order to purchase an invoice; if the order is not first the invoice may already be purchased. In this case, the Arbitraguer’s intent would be matched with the next invoice in the queue but if there are no invoices in the queue or deposits to be netted with at processing time, the intent would be converted into an invoice and need to be purchased by a new intent._
 
-The new intent sent by an Arbitrageur will incur the protocol fee. If the new intent is not matched and it finds itself waiting in the invoice queue for more than a whole epoch, it may begin to incur the auction discount. Visit the Risk section (coming soon) for recommendations on how avoid this situation and for information about matching, discounts, fees, and settlement visit Protocol Mechanics.
+The new intent sent by an Arbitrageur will incur the protocol fee. If the new intent is not matched and it finds itself waiting in the invoice queue for more than a whole epoch, it may begin to incur the auction discount. For information about matching, discounts, fees, and settlement visit Protocol Mechanics.
 
 ## **Monitoring discounted invoices**
 
@@ -64,11 +66,11 @@ An invoice’s `discount` is likely the most important factor in an Arbitrageur�
 
 ## Purchasing an intent
 
-As an Arbitrageur, you will need to interact with the `Spoke` contract on the domain that the intent being purchased has specified as its destination domain.
+As an Arbitrageur, you will need to interact with the `FeeAdapter` contract on the domain that the intent being purchased has specified as its destination domain.
 
-### `newIntent` called on `Spoke` contract
+### `newIntent` called on `FeeAdapter` contract
 
-The entry point to purchase an invoice (intent) is `newIntent` on the `Spoke` contract and this should be called on the destination domain for the invoice being purchased. `newIntent` is called because the netting system uses new intents from destination domains to match with existing invoices in the invoice queue on the Clearing chain i.e. creating a new intent moving USDT from Optimism to Arbitrum will purchase an existing invoice in the invoice queue moving USDT from Arbitrum to Optimism.
+The entry point to purchase an invoice (intent) is `newIntent` on the `FeeAdapter` contract and this should be called on the destination domain for the invoice being purchased. `newIntent` is called because the netting system uses new intents from destination domains to match with existing invoices in the invoice queue on the Clearing chain i.e. creating a new intent moving USDT from Optimism to Arbitrum will purchase an existing invoice in the invoice queue moving USDT from Arbitrum to Optimism.
 
 The `destinations` field is an array where multiple domains can be provided to allow the Arbitrageur to be settled on a preferred domain. When the invoice is purchased, the Arbitrageur’s `destinations` array will be iterated and the domain with the highest liquidity and lowest discount will be used for settlement. For example: if an invoice is travelling from Optimism to Arbitrum, the Arbitrageur’s new intent could be sent to the Spoke contract on Arbitrum with a destinations array containing multiple destinations such as \[Optimism, Polygon, BNB].
 
@@ -78,7 +80,21 @@ The `maxFee` field should **always be specified as 0** as maxFee is only applica
 
 The `ttl` input should **always be specified as 0** to indicate the order should be routed via the netting system on the Hub. When `ttl` is non-zero an order is routed via a separate solver pathway where the intent creator requires a dedicated solver to fill an intent for a fee. This pathway will not be supported at launch; Arbitrageurs must ensure all netting order fills **always specify `ttl` as 0.**
 
+The `feeParams` consists of `fee`, `deadline`, and `signature` which would be generated through interacting with the API. The `fee` will be the amount being charged to the user, the `deadline` is the period of time where the fee is valid, and the `signature` will be the signed payload from the Everclear fee signer to confirm the provided inputs provided are valid.&#x20;
+
 ```solidity
+  /**
+  * @param fee The fee being charged on the inputAsset
+  * @param deadline The deadline timestamp after which the sig is no longer valid
+  * @param sig The signed payload from the fee signer for the intent 
+  */
+  struct FeeParams {
+    uint256 fee;
+    uint256 deadline;
+    bytes sig;
+  }
+
+
 /**
  * @notice Creates a new intent
  * @param _destinations The possible destination chains of the intent
@@ -104,7 +120,7 @@ The `ttl` input should **always be specified as 0** to indicate the order should
   ) external returns (bytes32 _intentId, Intent memory _intent);
 ```
 
-When the `Spoke` contract completes the `newIntent` call, the intent will be added to the `intentQueue`, and periodically sent to the `Hub` contract on the Clearing chain - depending on the configuration of the max queue size and age for the origin domain.
+When the `FeeAdapter` contract completes the `newIntent` call, it will charge the user fees, and forward the call to the `EverclearSpoke`. The intent will then be added to the `intentQueue`, and periodically sent to the `Hub` contract on the Clearing chain - depending on the configuration of the max queue size and age for the origin domain.
 
 An intent can be created by interacting directly with the contract. The following is a simple example sending 100 USDT via the netting system from Sepolia Testnet to BNB Testnet -  `ttl` and `maxFee` are specified as 0 to indicate the netting system should be used.
 
@@ -114,11 +130,11 @@ import { ethers, BigNumberish } from 'ethers'
 // Wallet and contract configuration //
 const PRIVATE_KEY = "<PRIVATE_KEY>";
 const RPC_URL_ARB = "<RPC_URL>";
-const SPOKE_ADDRESS = ""; // Spoke on origin chain
-const SPOKE_ABI = ["function newIntent(uint32[] _destinations, address _receiver, address _inputAsset, address _outputAsset, uint256 _amount, uint24 _maxFee, uint48 _ttl, bytes _data) external"];
+const FEE_ADAPTER = ""; // FeeAdapter on origin chain
 const ERC20_ABI = ["function approve(address spender, uint256 amount) external"]
 
 // Function inputs //
+const ORIGIN = "11155111"
 const DEST = ["97"] // Single item - Sending to BNB testnet
 const DESTS = ["97","xyz"] // Multiple items - Sepolia and xyz testnet
 const TO = "0x..." // Receiver address on destination domain
@@ -135,15 +151,39 @@ async function newIntent(): Promise<void> {
 
   // Configuring the contract instance
   const usdtContract = new ethers.Contract(USDT_SEPOLIA_TEST, ERC20_ABI, wallet);
-  const spokeContract = new ethers.Contract(SPOKE_ADDRESS, SPOKE_ABI, wallet);
 
   // Approving and waiting for tx to be mined
-  const approveTx = await usdtContract.approve(SPOKE_ADDRESS, amount);
+  const approveTx = await usdtContract.approve(FEE_ADAPTER, amount);
   await approveTx.wait(5);
 
-  // Calling new intent to purchase an intent on OP
-  const newIntentTx = await spokeContract.newIntent(DEST, TO, USDT_SEPOLIA_TEST, USDT_BNB_TEST, AMOUNT_IN, MAX_FEE, TTL, ""); 
-  await newIntentTx.wait(5);
+  // API call payload
+  const payload = {
+    origin: ORIGIN, // Example: Arbitrum Sepolia
+    destinations: DEST, // Array of destination domains
+    to: TO,
+    inputAsset: USDT_SEPOLIA_TEST,
+    amount: AMOUNT_IN.toString(),
+    callData: "0x", // empty callData for netting orders
+    maxFee: MAX_FEE.toString(),
+    permit2Params: {
+      nonce: "0",        // Placeholder values
+      deadline: "0",
+      signature: "0x"
+    }
+  };
+  
+  // Using API to generate TransactionRequest for a newIntent
+  const txRequest = await fetch('https://api.testnet.everclear.org/intents', {
+    method: 'POST',
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(payload)
+  });
+  
+  // Submitting the order
+  const txResponse = await wallet.sendTransaction(txRequest);
+  const receipt = await txResponse.wait();
 }
 
 newIntent(); 

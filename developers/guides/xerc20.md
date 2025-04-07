@@ -1,5 +1,7 @@
 # xERC20
 
+> For all integrations, follow the steps in the API section which will construct an order that is signed by our fee signer and can be submitted to the `FeeAdapter` contract to create a new intent. Orders submitted directly to the `EverclearSpoke` will revert as well as any orders submitted to the `FeeAdapter` without a validly signed payload.
+
 ## Process Overview
 
 The XERC20 open token standard for a multi-chain ERC20 which can be transferred across chains with no slippage and without compromising security. Token issuers can control the chains their token is deployed to and set rate limits on a per-bridge basis - making the token natively multichain without compromises.
@@ -14,8 +16,8 @@ The process of setting up XERC20 infrastructure can be found in this guide; toke
 
 The process of bridging an XERC20 with the Spoke is as follows:
 
-1. User approves the Spoke contract to pull `XERC20` from wallet
-2. User calls `newIntent`, funds are pulled from wallet to Spoke contract, and tokens are burned via the `XERC20Module`
+1. User approves the `XERC20Module` contract to pull `XERC20` from wallet
+2. User calls `newIntent` on the Spoke, funds are pulled from wallet to `XERC20Module` contract, and tokens are burned by the `XERC20Module`
 3. Intents are transported from Spoke to clearing chain periodically when the queue size is more than a threshold of items or the oldest item in the queue is more than threshold of minutes
 4. Clearing chain receives intent and adds to the invoice queue if it’s the only intent for the xERC20 tickerHash on Hub OR adds the intent to the deposit queue
 5. Invoice and deposit queues are processed every epoch. As the `XERC20` does not need to be matched with another invoice, a settlement is automatically created and added to the settlement queue
