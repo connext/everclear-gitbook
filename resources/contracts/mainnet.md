@@ -50,7 +50,7 @@ description: >-
 | EverclearSpoke | 130      | 0xa05A3380889115bf313f1Db9d5f335157Be4D816 |
 | SpokeGateway   | 130      | 0x9ADA72CCbAfe94248aFaDE6B604D1bEAacc899A7 |
 | XERC20Module   | 130      | 0xD1daF260951B8d350a4AeD5C80d74Fd7298C93F4 |
-| FeeAdapter     | 130      |                                            |
+| FeeAdapter     | 130      | 0x8ad36C1aCB23b47Db6573A51a8a3009D4A4bC3b1 |
 | EverclearSpoke | 137      | 0x7189C59e245135696bFd2906b56607755F84F3fD |
 | SpokeGateway   | 137      | 0x26CFF54f11608Cd3060408690803AB4a43f462f2 |
 | XERC20Module   | 137      | 0x4aade9F812d2160A1b3c6e77f30f1bF14eC7e2a5 |
