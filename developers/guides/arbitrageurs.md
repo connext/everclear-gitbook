@@ -9,7 +9,7 @@ Arbitrageurs are professional and individual actors monitoring invoices that hav
 The process for Arbitrageurs is composed of two steps:
 
 1. Monitoring discounted invoices in the system to identify opportunities.
-2. Calling `newIntent` on the `FeeAdapter` contract that a discounted invoice is travelling to (i.e. calling `newIntent` on the destination domain specified by the intent being purchased).
+2. Calling `newIntent` on the `FeeAdapter` contract on the domain that the discounted invoice is travelling to (i.e. calling `newIntent` on the destination domain specified by the intent being purchased).
 
 If the Arbitrageur is the first to purchase the intent on the destination domain they will receive the discounted amount as a reward.
 
@@ -24,7 +24,7 @@ For example:
 The steps involved in the arbitrage process are:
 
 1. Monitor discounted invoice
-2. Call `newIntent` on `FeeAdapter` contract (destination domain of discounted invoice) and funds will be pulled from wallet to the contract
+2. Call `newIntent` on `FeeAdapter` contract (destination domain of discounted invoice), funds will be pulled from wallet to the contract, fees will be charged, and the call will be forwarded onto the `EverclearSpoke` contract
 3. Intent transported to the Clearing chain periodically when the queue size is more than threshold of items or the oldest item in the queue is more than threshold of minutes
 4. Clearing chain receives intent and adds to deposit queue
 5. Invoice and deposit queue are processed every epoch and matched intents are added to the settlement queue
@@ -80,7 +80,7 @@ The `maxFee` field should **always be specified as 0** as maxFee is only applica
 
 The `ttl` input should **always be specified as 0** to indicate the order should be routed via the netting system on the Hub. When `ttl` is non-zero an order is routed via a separate solver pathway where the intent creator requires a dedicated solver to fill an intent for a fee. This pathway will not be supported at launch; Arbitrageurs must ensure all netting order fills **always specify `ttl` as 0.**
 
-The `feeParams` consists of `fee`, `deadline`, and `signature` which would be generated through interacting with the API. The `fee` will be the amount being charged to the user, the `deadline` is the period of time where the fee is valid, and the `signature` will be the signed payload from the Everclear fee signer to confirm the provided inputs provided are valid.&#x20;
+The `feeParams` consists of `fee`, `deadline`, and `signature` which would be generated through interacting with the API. The `fee` will be the amount being charged to the user, the `deadline` is the period of time where the fee is valid, and the `signature` will be the signed payload from the Everclear fee signer which is used to confirm the provided inputs are valid.&#x20;
 
 ```solidity
   /**
@@ -116,7 +116,8 @@ The `feeParams` consists of `fee`, `deadline`, and `signature` which would be ge
     uint256 _amount,
     uint24 _maxFee,
     uint48 _ttl,
-    bytes calldata _data
+    bytes calldata _data,
+    IFeeAdapter.FeeParams calldata _feeParams
   ) external returns (bytes32 _intentId, Intent memory _intent);
 ```
 

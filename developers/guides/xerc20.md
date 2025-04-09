@@ -13,11 +13,14 @@ The process of setting up XERC20 infrastructure can be found in this guide; toke
 * XERC20 infrastructure deployed by the token issuer
 * XERC20 token approved on the Hub&#x20;
 * XERC20 token status stored on Spokes (as per request from token issuer)
+* Token issuer has given `XERC20Module` mint and burn limits on supported chains
+
+
 
 The process of bridging an XERC20 with the Spoke is as follows:
 
-1. User approves the `XERC20Module` contract to pull `XERC20` from wallet
-2. User calls `newIntent` on the Spoke, funds are pulled from wallet to `XERC20Module` contract, and tokens are burned by the `XERC20Module`
+1. User approves the `FeeAdapter` contract to pull `XERC20` from wallet
+2. User calls `newIntent` on the `FeeAdapter`, funds are pulled from wallet to `FeeAdapter` contract, fees are applied, the call is forwarded onto the `EverclearSpoke`, and tokens are burned by the `XERC20Module`
 3. Intents are transported from Spoke to clearing chain periodically when the queue size is more than a threshold of items or the oldest item in the queue is more than threshold of minutes
 4. Clearing chain receives intent and adds to the invoice queue if it’s the only intent for the xERC20 tickerHash on Hub OR adds the intent to the deposit queue
 5. Invoice and deposit queues are processed every epoch. As the `XERC20` does not need to be matched with another invoice, a settlement is automatically created and added to the settlement queue
@@ -77,7 +80,7 @@ The `feeParams` consists of `fee`, `deadline`, and `signature` which would be ge
   ) external returns (bytes32 _intentId, Intent memory _intent);
 ```
 
-When the `FeeAdapter` contract completes the `newIntent` call, it will charge the user fees, and forward the call to the `EverclearSpoke`. The intent will then be added to the `intentQueue`, and periodically sent to the `Hub` contract on the clearing chain - depending on the configuration of the max queue size and age for the origin domain.
+When the `FeeAdapter` contract completes the `newIntent` call, it will charge the user fees, forward the call to the `EverclearSpoke`, and the `XERC20Module` will use its burning limit to burn the assets being bridged. The intent will then be added to the `intentQueue`, and periodically sent to the `Hub` contract on the clearing chain - depending on the configuration of the max queue size and age for the origin domain.
 
 An intent can be created by interacting directly with the contract. The following is a simple example sending 100 xTOKEN via the XERC20 route from Sepolia Testnet to BNB Testnet.
 
@@ -111,7 +114,7 @@ async function newIntent(): Promise<void> {
 	const spokeContract = new ethers.Contract(SPOKE_ADDRESS, SPOKE_ABI, wallet);
 	
 	// Approving and waiting for tx to be mined
-	const approveTx = await xTokenContract.approve(SPOKE_ADDRESS, amount);
+	const approveTx = await xTokenContract.approve(FEE_ADAPTER, amount);
         await approveTx.wait(5);
     
         // Constructing the payload

@@ -12,7 +12,7 @@ The rebalancing process is simplified to a single transaction: calling `newInten
 
 The steps involved in the netting process are:
 
-1. Rebalancer calls `newIntent` and funds are pulled from wallet to `FeeAdapter` contract
+1. Rebalancer calls `newIntent` on the `FeeAdapter` contract, funds are pulled from wallet to, fees are charged, and the call is forwarded onto the `EverclearSpoke`
 2. Intents are transported from Spoke to clearing chain periodically when the queue size is more than a threshold of items or the oldest item in the queue is more than  threshold of minutes
 3. Clearing chain receives intent and adds to deposit queue if it can be matched with an invoice OR adds intent to the invoice queue if there are no invoices to match with
 4. Invoice and deposit queue is processed every epoch. Matched intents are added to the settlement queue and unmatched intents are added to the invoice queue
@@ -40,7 +40,7 @@ The `maxFee` field should **always be specified as 0** as maxFee is only applica
 
 The `ttl` input should **always be specified as 0** to indicate the order should be routed via the netting system on the Hub. When `ttl` is non-zero an order is routed via a separate solver pathway where the intent creator requires a dedicated solver to fill the intent for a fee. This pathway will not be supported at launch; Rebalancers must ensure all netting orders **always specify `ttl` as 0.**
 
-The `feeParams` consists of `fee`, `deadline`, and `signature` which would be generated through interacting with the API. The `fee` will be the amount being charged to the user, the `deadline` is the period of time where the fee is valid, and the `signature` will be the signed payload from the Everclear fee signer to confirm the provided inputs provided are valid.&#x20;
+The `feeParams` consists of `fee`, `deadline`, and `signature` which would be generated through interacting with the API. The `fee` will be the amount being charged to the user, the `deadline` is the period of time where the fee is valid, and the `signature` will be the signed payload from the Everclear fee signer which is used to confirm the inputs provided are valid.&#x20;
 
 ```solidity
   /**
