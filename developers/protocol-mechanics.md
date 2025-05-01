@@ -19,7 +19,9 @@ The two main actors in the system are:
 
 ### **Intent creation**
 
-Intents can be created by anybody interacting with the Spoke contracts on supported domains. To create an intent users call the `newIntent` function on the contract specifying the token, amount, and destination chain.
+Intents can be created by anybody interacting with the Spoke contracts on supported domains. To create an intent users should call the API endpoint at `POST /intents` specifying the token, amount, and destination chain in the request body. The API response will include the contract address and transaction data that should be signed and submitted by the user.
+
+See the [API docs](api.md) for more details.
 
 The intent will be added to the IntentQueue on the Spoke contract and this will be periodically sent in a batch to the Hub contract on the Clearing chain when the queue size is more than a defined amount or the oldest item in the queue is older than a threshold.
 
@@ -85,7 +87,7 @@ Invoices in the invoice queue can also be filled when new intents from Rebalance
 
 There are a few costs that will reduce the amount a user will receive when using Everclear:
 
-* Protocol fee
+* Dynamic protocol fee
 * Gas
 * Solver fee (if applicable)
 * Discounts (if intents become invoices)

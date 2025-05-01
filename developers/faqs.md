@@ -32,7 +32,7 @@ Our network is composed of professional actors who want to rebalance large sums 
 
 ### **What is the process of a creating a new intent?**
 
-To create an intent, the newIntent function on a `Spoke` contract is called which will add an intent to the intentQueue on the Spoke domain.
+To create an intent, request the transaction data from the Everclear API at [`POST /intents`](api.md#post-intents). Sign and send the transaction data onchain.
 
 ### How is the intentId created?
 
@@ -130,4 +130,4 @@ An intent will expire three possible fees:
 
 ### What is the protocol fee?
 
-Coming soon.
+Protocol fees are charged dynamically depending on the route (combination of asset, origin, destinations). Fees are levied against the amount sent.
