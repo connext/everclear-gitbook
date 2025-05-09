@@ -56,10 +56,6 @@ Mainnet API: `https://api.everclear.org`
 [Broken link](broken-reference)
 {% endopenapi-operation %}
 
-{% openapi-operation spec="everclear-api-mainnet" path="/quote" method="post" %}
-[Broken link](broken-reference)
-{% endopenapi-operation %}
-
 {% openapi-operation spec="everclear-api-mainnet" path="/routes/quotes" method="post" %}
 [Broken link](broken-reference)
 {% endopenapi-operation %}
