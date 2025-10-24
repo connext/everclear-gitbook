@@ -36,6 +36,10 @@ The `feeParams` consists of `fee`, `deadline`, and `signature` which would be ge
 
 Domain IDs correspond to standard chain IDs and the protocol's supported list can be found in the [Supported Chains](../../resources/contracts/) section.
 
+### Priority Settlement (Fast Path)
+
+You can create intents that go through the priority settlement or fast path filling flow, that should settle you intent under two minutes max, to check weather the route you picked has fast path available you show first use the `/routes/quotes` , if fast is available the response payload will contain a new field called `fastPathQuote` which is the special fee being charged for the fast path. once confirmed, you can create an intent with a new query param `isFastPath: true` to the `POST /intents` endpoint.
+
 ## **Monitoring Intents**
 
 The status of an intent can be fetched from the Everclear API's [`GET  /intents/{intentId}`](../api.md#get-intents-intentid) endpoint.&#x20;
