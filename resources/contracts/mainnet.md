@@ -28,6 +28,11 @@ description: >-
 | Blast     | 81457   | 81457    | Spoke |
 | Scroll    | 534352  | 534352   | Spoke |
 | Taiko     | 167000  | 167000   | Spoke |
+| Berachain | 80094   | 80094    | Spoke |
+| Gnosis    | 100     | 100      | Spoke |
+| Mantle    | 5000    | 5000     | Spoke |
+| Sonic     | 146     | 146      | Spoke |
+| Ink       | 57073   | 57073    | Spoke |
 
 ## Deployed Contracts
 
@@ -103,6 +108,26 @@ description: >-
 | SpokeGateway   | 167000   | 0x4e2bbbFb10058E0D248a78fe2F469562f4eDbe66 |
 | XERC20Module   | 167000   | 0xdCA40903E271Cc76AECd62dF8d6c19f3Ac873E64 |
 | FeeAdapter     | 167000   | 0x986962C73059e06303efaD1F4c61Ed4905Fc5431 |
+| EverclearSpoke | 80094    | 0xa05A3380889115bf313f1Db9d5f335157Be4D816 |
+| SpokeGateway   | 80094    | 0x9ADA72CCbAfe94248aFaDE6B604D1bEAacc899A7 |
+| XERC20Module   | 80094    | 0xD1daF260951B8d350a4AeD5C80d74Fd7298C93F4 |
+| FeeAdapter     | 80094    | 0x3c135048306b412Ad8F4375F6a8CBe94b5D56184 |
+| EverclearSpoke | 100      | 0xe0F010e465f15dcD42098dF9b99F1038c11B3056 |
+| SpokeGateway   | 100      | 0xeFa6Ac3F931620fD0449eC8c619f2A14A0A78E99 |
+| XERC20Module   | 100      | 0xEFfAB7cCEBF63FbEFB4884964b12259d4374FaAa |
+| FeeAdapter     | 100      | 0xd0185bfb8107c5b2336bC73cE3fdd9Bfb504540e |
+| EverclearSpoke | 5000     | 0xe0F010e465f15dcD42098dF9b99F1038c11B3056 |
+| SpokeGateway   | 5000     | 0xeFa6Ac3F931620fD0449eC8c619f2A14A0A78E99 |
+| XERC20Module   | 5000     | 0xEFfAB7cCEBF63FbEFB4884964b12259d4374FaAa |
+| FeeAdapter     | 5000     | 0xd0185bfb8107c5b2336bC73cE3fdd9Bfb504540e |
+| EverclearSpoke | 146      | 0xa05A3380889115bf313f1Db9d5f335157Be4D816 |
+| SpokeGateway   | 146      | 0x9ADA72CCbAfe94248aFaDE6B604D1bEAacc899A7 |
+| XERC20Module   | 146      | 0xD1daF260951B8d350a4AeD5C80d74Fd7298C93F4 |
+| FeeAdapter     | 146      | 0xd0185bfb8107c5b2336bC73cE3fdd9Bfb504540e |
+| EverclearSpoke | 57073    | 0xa05A3380889115bf313f1Db9d5f335157Be4D816 |
+| SpokeGateway   | 57073    | 0x9ADA72CCbAfe94248aFaDE6B604D1bEAacc899A7 |
+| XERC20Module   | 57073    | 0xD1daF260951B8d350a4AeD5C80d74Fd7298C93F4 |
+| FeeAdapter     | 57073    | 0x877Fd0A881B63eBE413124EeE6abbCD7E82cf10b |
 
 ## Registered Assets
 
