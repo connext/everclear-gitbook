@@ -15,6 +15,8 @@
 * [Protocol Mechanics](developers/protocol-mechanics.md)
 * [Guides](developers/guides/README.md)
   * [Quickstarter](developers/guides/quickstarter.md)
+  * [Priority Settlement](developers/guides/priority-settlement.md)
+  * [Cross Chain Swaps](developers/guides/cross-chain-swaps.md)
   * [xERC20](developers/guides/xerc20.md)
 * [API](developers/api.md)
 * [Audits](developers/audits.md)
