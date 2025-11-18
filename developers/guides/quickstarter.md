@@ -73,7 +73,6 @@ const config = {
   method: 'post',
   url: 'https://api.everclear.org/routes/quotes',
   headers: { 
-    'x-admin-token': '3v3rcl34r43v3r', 
     'Content-Type': 'application/json'
   },
   data
@@ -259,7 +258,6 @@ const config = {
   method: 'post',
   url: 'https://api.everclear.org/intents/',
   headers: { 
-    'x-admin-token': '3v3rcl34r43v3r', 
     'Content-Type': 'application/json'
   },
   data
