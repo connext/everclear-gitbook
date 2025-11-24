@@ -2,7 +2,9 @@
 
 ### List of Audits
 
-September 2024: [Creed](https://github.com/everclearorg/audits/blob/main/reports/\[CREED]%202024-08%20Everclear%20Chimera%20Mitigations.pdf)
+Chimera - September 2024: [Creed](https://github.com/everclearorg/audits/blob/main/reports/\[CREED]%202024-08%20Everclear%20Chimera%20Mitigations.pdf)
+
+Swaps - September 2025: [Creed](https://github.com/everclearorg/audits/blob/main/reports/\[CREED]%20Everclear%20Swaps%20September%202025.pdf)
 
 ### Audit Documentation
 
