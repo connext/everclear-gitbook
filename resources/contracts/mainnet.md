@@ -8,31 +8,34 @@ description: >-
 
 ## Supported Chains
 
-| Chain     | ChainID | DomainID | Role  |
-| --------- | ------- | -------- | ----- |
-| Everclear | 25327   | 25327    | Hub   |
-| Ethereum  | 1       | 1        | Spoke |
-| Optimism  | 10      | 10       | Spoke |
-| BSC       | 56      | 56       | Spoke |
-| Unichain  | 130     | 130      | Spoke |
-| Polygon   | 137     | 137      | Spoke |
-| ZkSync    | 324     | 324      | Spoke |
-| Ronin     | 2020    | 2020     | Spoke |
-| Base      | 8453    | 8453     | Spoke |
-| Apechain  | 33139   | 33139    | Spoke |
-| Mode      | 34443   | 34443    | Spoke |
-| Arbitrum  | 42161   | 421614   | Spoke |
-| Avalanche | 43114   | 43114    | Spoke |
-| Zircuit   | 48900   | 48900    | Spoke |
-| Linea     | 59144   | 59144    | Spoke |
-| Blast     | 81457   | 81457    | Spoke |
-| Scroll    | 534352  | 534352   | Spoke |
-| Taiko     | 167000  | 167000   | Spoke |
-| Berachain | 80094   | 80094    | Spoke |
-| Gnosis    | 100     | 100      | Spoke |
-| Mantle    | 5000    | 5000     | Spoke |
-| Sonic     | 146     | 146      | Spoke |
-| Ink       | 57073   | 57073    | Spoke |
+| Chain     | ChainID    | DomainID   | Role  |
+| --------- | ---------- | ---------- | ----- |
+| Everclear | 25327      | 25327      | Hub   |
+| Ethereum  | 1          | 1          | Spoke |
+| Optimism  | 10         | 10         | Spoke |
+| BSC       | 56         | 56         | Spoke |
+| Unichain  | 130        | 130        | Spoke |
+| Polygon   | 137        | 137        | Spoke |
+| ZkSync    | 324        | 324        | Spoke |
+| Ronin     | 2020       | 2020       | Spoke |
+| Base      | 8453       | 8453       | Spoke |
+| Apechain  | 33139      | 33139      | Spoke |
+| Mode      | 34443      | 34443      | Spoke |
+| Arbitrum  | 42161      | 421614     | Spoke |
+| Avalanche | 43114      | 43114      | Spoke |
+| Zircuit   | 48900      | 48900      | Spoke |
+| Linea     | 59144      | 59144      | Spoke |
+| Blast     | 81457      | 81457      | Spoke |
+| Scroll    | 534352     | 534352     | Spoke |
+| Taiko     | 167000     | 167000     | Spoke |
+| Berachain | 80094      | 80094      | Spoke |
+| Gnosis    | 100        | 100        | Spoke |
+| Mantle    | 5000       | 5000       | Spoke |
+| Sonic     | 146        | 146        | Spoke |
+| Ink       | 57073      | 57073      | Spoke |
+| TAC       | 239        | 239        | Spoke |
+| TRON      | 728126428  | 728126428  | Spoke |
+| Solana    | 1399811149 | 1399811149 | Spoke |
 
 ## Deployed Contracts
 
@@ -131,4 +134,94 @@ description: >-
 
 ## Registered Assets
 
-<table><thead><tr><th width="147">Asset Name</th><th width="105">Symbol</th><th width="104">Decimals</th><th width="109">DomainID</th><th width="175">Address</th></tr></thead><tbody><tr><td>Wrapped Ether</td><td>WETH</td><td>18</td><td>1</td><td>0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2</td></tr><tr><td>Wrapped Ether</td><td>WETH</td><td>18</td><td>10</td><td>0x4200000000000000000000000000000000000006</td></tr><tr><td>Wrapped Ether</td><td>WETH</td><td>18</td><td>56</td><td>0x2170Ed0880ac9A755fd29B2688956BD959F933F8</td></tr><tr><td>Wrapped Ether</td><td>WETH</td><td>18</td><td>130</td><td>0x4200000000000000000000000000000000000006</td></tr><tr><td>Wrapped Ether</td><td>WETH</td><td>18</td><td>137</td><td>0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619</td></tr><tr><td>Wrapped Ether</td><td>WETH</td><td>18</td><td>324</td><td>0x5AEa5775959fBC2557Cc8789bC1bf90A239D9a91</td></tr><tr><td>Wrapped Ether</td><td>WETH</td><td>18</td><td>2020</td><td>0xc99a6A985eD2Cac1ef41640596C5A5f9F4E19Ef5</td></tr><tr><td>Wrapped Ether</td><td>WETH</td><td>18</td><td>8453</td><td>0x4200000000000000000000000000000000000006</td></tr><tr><td>Wrapped Ether</td><td>WETH</td><td>18</td><td>33139</td><td>0xcF800F4948D16F23333508191B1B1591daF70438</td></tr><tr><td>Wrapped Ether</td><td>WETH</td><td>18</td><td>34443</td><td>0x4200000000000000000000000000000000000006</td></tr><tr><td>Wrapped Ether</td><td>WETH</td><td>18</td><td>42161</td><td>0x82aF49447D8a07e3bd95BD0d56f35241523fBab1</td></tr><tr><td>Wrapped Ether</td><td>WETH</td><td>18</td><td>167000</td><td>0xA51894664A773981C6C112C43ce576f315d5b1B6</td></tr><tr><td>Wrapped Ether</td><td>WETH</td><td>18</td><td>43114</td><td>0x49d5c2bdffac6ce2bfdb6640f4f80f226bc10bab</td></tr><tr><td>Wrapped Ether</td><td>WETH</td><td>18</td><td>59144</td><td>0xe5d7c2a44ffddf6b295a15c148167daaaf5cf34f</td></tr><tr><td>Wrapped Ether</td><td>WETH</td><td>18</td><td>81457</td><td>0x4300000000000000000000000000000000000004</td></tr><tr><td>Wrapped Ether</td><td>WETH</td><td>18</td><td>534352</td><td>0x5300000000000000000000000000000000000004</td></tr><tr><td>USD Coin</td><td>USDC</td><td>6</td><td>1</td><td>0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48</td></tr><tr><td>USD Coin</td><td>USDC</td><td>6</td><td>10</td><td>0x0b2C639c533813f4Aa9D7837CAf62653d097Ff85</td></tr><tr><td>USD Coin</td><td>USDC</td><td>18</td><td>56</td><td>0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d</td></tr><tr><td>USD Coin</td><td>USDC</td><td>6</td><td>130</td><td>0x078D782b760474a361dDA0AF3839290b0EF57AD6</td></tr><tr><td>USD Coin</td><td>USDC</td><td>6</td><td>137</td><td>0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359</td></tr><tr><td>USD Coin</td><td>USDC</td><td>6</td><td>324</td><td>0x1d17CBcF0D6D143135aE902365D2E5e2A16538D4</td></tr><tr><td>USD Coin</td><td>USDC</td><td>6</td><td>2020</td><td>0x0B7007c13325C48911F73A2daD5FA5dCBf808aDc</td></tr><tr><td>USD Coin</td><td>USDC</td><td>6</td><td>8453</td><td>0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913</td></tr><tr><td>USD Coin</td><td>USDC</td><td>6</td><td>34443</td><td>0xd988097fb8612cc24eeC14542bC03424c656005f</td></tr><tr><td>USD Coin</td><td>USDC</td><td>6</td><td>42161</td><td>0xaf88d065e77c8cC2239327C5EDb3A432268e5831</td></tr><tr><td>USD Coin</td><td>USDC</td><td>6</td><td>43114</td><td>0xB97EF9Ef8734C71904D8002F8b6Bc66Dd9c48a6E</td></tr><tr><td>USD Coin</td><td>USDC</td><td>6</td><td>59144</td><td>0x176211869cA2b568f2A7D4EE941E073a821EE1ff</td></tr><tr><td>USD Coin</td><td>USDC</td><td>6</td><td>167000</td><td>0x07d83526730c7438048D55A4fc0b850e2aaB6f0b</td></tr><tr><td>USD Coin</td><td>USDC</td><td>6</td><td>534352</td><td>0x06eFdBFf2a14a7c8E15944D1F4A48F9F95F663A4</td></tr><tr><td>Tether USD</td><td>USDT</td><td>6</td><td>1</td><td>0xdAC17F958D2ee523a2206206994597C13D831ec7</td></tr><tr><td>Tether USD</td><td>USDT</td><td>6</td><td>10</td><td>0x94b008aA00579c1307B0EF2c499aD98a8ce58e58</td></tr><tr><td>Tether USD</td><td>USDT</td><td>18</td><td>56</td><td>0x55d398326f99059fF775485246999027B3197955</td></tr><tr><td>Tether USD</td><td>USDT</td><td>6</td><td>130</td><td>0x588CE4F028D8e7B53B687865d6A67b3A54C75518</td></tr><tr><td>Tether USD</td><td>USDT</td><td>6</td><td>137</td><td>0xc2132d05d31c914a87c6611c10748aeb04b58e8f</td></tr><tr><td>Tether USD</td><td>USDT</td><td>6</td><td>324</td><td>0x493257fD37EDB34451f62EDf8D2a0C418852bA4C</td></tr><tr><td>Tether USD</td><td>USDT</td><td>6</td><td>34443</td><td>0xf0F161fDA2712DB8b566946122a5af183995e2eD</td></tr><tr><td>Tether USD</td><td>USDT</td><td>6</td><td>42161</td><td>0x3f3f5dF88dC9F13eac63DF89EC16ef6e7E25DdE7</td></tr><tr><td>Tether USD</td><td>USDT</td><td>6</td><td>43114</td><td>0x9702230A8Ea53601f5cD2dc00fDBc13d4dF4A8c7</td></tr><tr><td>Tether USD</td><td>USDT</td><td>6</td><td>59144</td><td>0xa219439258ca9da29e9cc4ce5596924745e12b93</td></tr><tr><td>Tether USD</td><td>USDT</td><td>6</td><td>167000</td><td>0x2DEF195713CF4a606B49D07E520e22C17899a736</td></tr><tr><td>Tether USD</td><td>USDT</td><td>6</td><td>534532</td><td>0xf55BEC9cafDbE8730f096Aa55dad6D22d44099Df</td></tr><tr><td>xPufETH</td><td>xPufETH</td><td>18</td><td>1</td><td>0xD7D2802f6b19843ac4DfE25022771FD83b5A7464</td></tr><tr><td>xPufETH</td><td>xPufETH</td><td>18</td><td>33139</td><td>0x6234E5ef39B12EFdFcbd99dd7F452F27F3fEAE3b</td></tr><tr><td>xPufETH</td><td>xPufETH</td><td>18</td><td>48900</td><td>0x9346A5043C590133FE900aec643D9622EDddBA57</td></tr></tbody></table>
+| Asset Name           | Symbol   | Decimals | DomainID   | Address                                                            |
+| -------------------- | -------- | -------- | ---------- | ------------------------------------------------------------------ |
+| CLEAR Token          | CLEAR    | 18       | 1          | 0x58b9cB810A68a7f3e1E4f8Cb45D1B9B3c79705E8                         |
+| CLEAR Token          | CLEAR    | 18       | 10         | 0x58b9cB810A68a7f3e1E4f8Cb45D1B9B3c79705E8                         |
+| CLEAR Token          | CLEAR    | 18       | 56         | 0x58b9cB810A68a7f3e1E4f8Cb45D1B9B3c79705E8                         |
+| CLEAR Token          | CLEAR    | 18       | 137        | 0x58b9cB810A68a7f3e1E4f8Cb45D1B9B3c79705E8                         |
+| CLEAR Token          | CLEAR    | 18       | 25327      | 0x58b9cB810A68a7f3e1E4f8Cb45D1B9B3c79705E8                         |
+| CLEAR Token          | CLEAR    | 18       | 42161      | 0x58b9cB810A68a7f3e1E4f8Cb45D1B9B3c79705E8                         |
+| Coinbase Wrapped BTC | cbBTC    | 8        | 1          | 0xcbB7C0000aB88B473b1f5aFd9ef808440eed33Bf                         |
+| Coinbase Wrapped BTC | cbBTC    | 8        | 8453       | 0xcbB7C0000aB88B473b1f5aFd9ef808440eed33Bf                         |
+| EURC                 | EURC     | 6        | 1          | 0x1aBaEA1f7C830bD89Acc67eC4af516284b1bC33c                         |
+| EURC                 | EURC     | 6        | 8453       | 0x60a3E35Cc302bFA44Cb288Bc5a4F316Fdb1adb42                         |
+| mETH                 | mETH     | 18       | 1          | 0xd5f7838f5c461feff7fe49ea5ebaf7728bb0adfa                         |
+| mETH                 | mETH     | 18       | 5000       | 0xcda86a272531e8640cd7f1a92c01839911b90bb0                         |
+| PT-sUSDE             | PT-sUSDE | 18       | 1          | 0xE8483517077afa11A9B07f849cee2552f040d7b2                         |
+| PT-sUSDE             | PT-sUSDE | 6        | 1399811149 | 0x05c0ad344d082fe99030a0414acc5726b24c89e1a511eac6e58d809145dd6503 |
+| Tether USD           | USDT     | 6        | 1          | 0xdAC17F958D2ee523a2206206994597C13D831ec7                         |
+| Tether USD           | USDT     | 6        | 10         | 0x94b008aA00579c1307B0EF2c499aD98a8ce58e58                         |
+| Tether USD           | USDT     | 18       | 56         | 0x55d398326f99059fF775485246999027B3197955                         |
+| Tether USD           | USDT     | 6        | 130        | 0x588CE4F028D8e7B53B687865d6A67b3A54C75518                         |
+| Tether USD           | USDT     | 6        | 137        | 0xc2132d05d31c914a87c6611c10748aeb04b58e8f                         |
+| Tether USD           | USDT     | 6        | 324        | 0x493257fD37EDB34451f62EDf8D2a0C418852bA4C                         |
+| Tether USD           | USDT     | 6        | 34443      | 0xf0F161fDA2712DB8b566946122a5af183995e2eD                         |
+| Tether USD           | USDT     | 6        | 42161      | 0x3f3f5dF88dC9F13eac63DF89EC16ef6e7E25DdE7                         |
+| Tether USD           | USDT     | 6        | 43114      | 0x9702230A8Ea53601f5cD2dc00fDBc13d4dF4A8c7                         |
+| Tether USD           | USDT     | 6        | 59144      | 0xa219439258ca9da29e9cc4ce5596924745e12b93                         |
+| Tether USD           | USDT     | 6        | 167000     | 0x2DEF195713CF4a606B49D07E520e22C17899a736                         |
+| Tether USD           | USDT     | 6        | 534532     | 0xf55BEC9cafDbE8730f096Aa55dad6D22d44099Df                         |
+| Tether USD           | USDT     | 6        | 146        | 0x6047828dc181963ba44974801FF68e538dA5eaF9                         |
+| Tether USD           | USDT     | 6        | 239        | 0xAF988C3f7CB2AceAbB15f96b19388a259b6C438f                         |
+| Tether USD           | USDT     | 6        | 5000       | 0x201EBa5CC46D216Ce6DC03F6a759e8E766e956aE                         |
+| Tether USD           | USDT     | 6        | 8453       | 0xfde4C96c8593536E31F229EA8f37b2ADa2699bb2                         |
+| Tether USD           | USDT     | 6        | 42161      | 0xFd086bC7CD5C481DCC9C85ebE478A1C0b69FCbb9                         |
+| Tether USD           | USDT     | 6        | 48900      | 0x46dDa6a5a559d861c06EC9a95Fb395f5C3Db0742                         |
+| Tether USD           | USDT     | 6        | 534352     | 0xf55BEC9cafDbE8730f096Aa55dad6D22d44099Df                         |
+| Tether USD           | USDT     | 6        | 728126428  | TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t                                 |
+| Tether USD           | USDT     | 6        | 1399811149 | 0xce010e60afedb22717bd63192f54145a3f965a33bb82d2c7029eb2ce1e208264 |
+| USD Coin             | USDC     | 6        | 1          | 0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48                         |
+| USD Coin             | USDC     | 6        | 10         | 0x0b2C639c533813f4Aa9D7837CAf62653d097Ff85                         |
+| USD Coin             | USDC     | 18       | 56         | 0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d                         |
+| USD Coin             | USDC     | 6        | 130        | 0x078D782b760474a361dDA0AF3839290b0EF57AD6                         |
+| USD Coin             | USDC     | 6        | 137        | 0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359                         |
+| USD Coin             | USDC     | 6        | 324        | 0x1d17CBcF0D6D143135aE902365D2E5e2A16538D4                         |
+| USD Coin             | USDC     | 6        | 2020       | 0x0B7007c13325C48911F73A2daD5FA5dCBf808aDc                         |
+| USD Coin             | USDC     | 6        | 8453       | 0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913                         |
+| USD Coin             | USDC     | 6        | 34443      | 0xd988097fb8612cc24eeC14542bC03424c656005f                         |
+| USD Coin             | USDC     | 6        | 42161      | 0xaf88d065e77c8cC2239327C5EDb3A432268e5831                         |
+| USD Coin             | USDC     | 6        | 43114      | 0xB97EF9Ef8734C71904D8002F8b6Bc66Dd9c48a6E                         |
+| USD Coin             | USDC     | 6        | 59144      | 0x176211869cA2b568f2A7D4EE941E073a821EE1ff                         |
+| USD Coin             | USDC     | 6        | 167000     | 0x07d83526730c7438048D55A4fc0b850e2aaB6f0b                         |
+| USD Coin             | USDC     | 6        | 534352     | 0x06eFdBFf2a14a7c8E15944D1F4A48F9F95F663A4                         |
+| USD Coin             | USDC     | 6        | 146        | 0x29219dd400f2Bf60E5a23d13Be72B486D4038894                         |
+| USD Coin             | USDC     | 6        | 5000       | 0x09Bc4E0D864854c6aFB6eB9A9cdF58aC190D0dF9                         |
+| USD Coin             | USDC     | 6        | 48900      | 0x3b952c8C9C44e8Fe201e2b26F6B2200203214cfF                         |
+| USD Coin             | USDC     | 6        | 57073      | 0x2D270e6886d130D724215A266106e6832161EAEd                         |
+| USD Coin             | USDC     | 6        | 80094      | 0x549943e04f40284185054145c6E4e9568C1D3241                         |
+| USD Coin             | USDC     | 6        | 1399811149 | 0xc6fa7af3bedbad3a3d65f36aabc97431b1bbe4c2d2f6e0e47ca60203452f5d61 |
+| USDC.E               | USDC.E   | 6        | 57073      | 0xF1815bd50389c46847f0Bda824eC8da914045D14                         |
+| Wrapped Bitcoin      | WBTC     | 8        | 1          | 0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599                         |
+| Wrapped Bitcoin      | WBTC     | 8        | 8453       | 0x0555E30da8f98308EdB960aa94C0Db47230d2B9c                         |
+| Wrapped Bitcoin      | WBTC     | 8        | 42161      | 0x2f2a2543B76A4166549F7aaB2e75Bef0aefC5B0f                         |
+| Wrapped Bitcoin      | WBTC     | 8        | 1399811149 | 0x233cea474d6cb513dad421c82e681f80ed7512455dfb91fc68363b99d9156582 |
+| Wrapped Ether        | WETH     | 18       | 1          | 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2                         |
+| Wrapped Ether        | WETH     | 18       | 10         | 0x4200000000000000000000000000000000000006                         |
+| Wrapped Ether        | WETH     | 18       | 56         | 0x2170Ed0880ac9A755fd29B2688956BD959F933F8                         |
+| Wrapped Ether        | WETH     | 18       | 130        | 0x4200000000000000000000000000000000000006                         |
+| Wrapped Ether        | WETH     | 18       | 137        | 0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619                         |
+| Wrapped Ether        | WETH     | 18       | 324        | 0x5AEa5775959fBC2557Cc8789bC1bf90A239D9a91                         |
+| Wrapped Ether        | WETH     | 18       | 2020       | 0xc99a6A985eD2Cac1ef41640596C5A5f9F4E19Ef5                         |
+| Wrapped Ether        | WETH     | 18       | 8453       | 0x4200000000000000000000000000000000000006                         |
+| Wrapped Ether        | WETH     | 18       | 33139      | 0xcF800F4948D16F23333508191B1B1591daF70438                         |
+| Wrapped Ether        | WETH     | 18       | 34443      | 0x4200000000000000000000000000000000000006                         |
+| Wrapped Ether        | WETH     | 18       | 42161      | 0x82aF49447D8a07e3bd95BD0d56f35241523fBab1                         |
+| Wrapped Ether        | WETH     | 18       | 167000     | 0xA51894664A773981C6C112C43ce576f315d5b1B6                         |
+| Wrapped Ether        | WETH     | 18       | 43114      | 0x49d5c2bdffac6ce2bfdb6640f4f80f226bc10bab                         |
+| Wrapped Ether        | WETH     | 18       | 59144      | 0xe5d7c2a44ffddf6b295a15c148167daaaf5cf34f                         |
+| Wrapped Ether        | WETH     | 18       | 81457      | 0x4300000000000000000000000000000000000004                         |
+| Wrapped Ether        | WETH     | 18       | 534352     | 0x5300000000000000000000000000000000000004                         |
+| Wrapped Ether        | WETH     | 18       | 146        | 0x50c42dEAcD8Fc9773493ED674b675bE577f2634b                         |
+| Wrapped Ether        | WETH     | 18       | 5000       | 0xdEAddEaDdeadDEadDEADDEAddEADDEAddead1111                         |
+| Wrapped Ether        | WETH     | 18       | 25327      | 0x2e31ebD2eB114943630Db6ba8c7f7687bdA5835F                         |
+| Wrapped Ether        | WETH     | 18       | 48900      | 0x4200000000000000000000000000000000000006                         |
+| Wrapped Ether        | WETH     | 18       | 57073      | 0x4200000000000000000000000000000000000006                         |
+| Wrapped Ether        | WETH     | 18       | 80094      | 0x2F6F07CDcf3588944Bf4C42aC74ff24bF56e7590                         |
+| Wrapped Ether        | WETH     | 8        | 1399811149 | 0x66e5188a1308a1db90b6d31f3fbdca8c3df2678c8112dfdd3d192c5a3cc457a8 |
+| xPufETH              | xPufETH  | 18       | 1          | 0xD7D2802f6b19843ac4DfE25022771FD83b5A7464                         |
+| xPufETH              | xPufETH  | 18       | 33139      | 0x6234E5ef39B12EFdFcbd99dd7F452F27F3fEAE3b                         |
+| xPufETH              | xPufETH  | 18       | 48900      | 0x9346A5043C590133FE900aec643D9622EDddBA57                         |
+| xPufETH              | xPufETH  | 18       | 56         | 0x64274835D88F5c0215da8AADd9A5f2D2A2569381                         |
+| xPufETH              | xPufETH  | 18       | 8453       | 0x23dA5F2d509cb43A59d43C108a43eDf34510eff1                         |
+
